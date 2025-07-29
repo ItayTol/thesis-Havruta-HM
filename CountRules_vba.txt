@@ -1,0 +1,49 @@
+Sub CountRules()
+    Dim ws As Worksheet
+    Dim ruleDict As Object
+    Set ruleDict = CreateObject("Scripting.Dictionary")
+    
+    Set ws = ThisWorkbook.Sheets(1)
+    Dim lastRow As Long
+    lastRow = ws.Cells(ws.Rows.Count, "E").End(xlUp).Row  ' Assuming column A has the rules
+
+    Dim cell As Range, rule As String, parts() As String, i As Long
+    For Each cell In ws.Range("E1:E" & lastRow)
+        If Not IsEmpty(cell.Value) Then
+            parts = Split(cell.Value, ",") ' Split by ","
+            For i = LBound(parts) To UBound(parts)
+                rule = Trim(parts(i))
+                rule = Replace(rule, "[", "")
+                rule = Replace(rule, "]", "")
+                rule = Replace(rule, "'", "") ' Remove any remaining apostrophes
+                
+                If Len(rule) > 0 Then
+                    If ruleDict.exists(rule) Then
+                        ruleDict(rule) = ruleDict(rule) + 1
+                    Else
+                        ruleDict.Add rule, 1
+                    End If
+                End If
+            Next i
+        End If
+    Next cell
+
+    ' Output results to Sheet2
+    Dim outWs As Worksheet
+    Set outWs = ThisWorkbook.Sheets.Add
+    outWs.Name = "Rule Counts"
+    outWs.Cells(1, 1).Value = "Rule"
+    outWs.Cells(1, 2).Value = "Count"
+    
+    i = 2
+    Dim key As Variant
+    For Each key In ruleDict.Keys
+        outWs.Cells(i, 1).Value = key
+        outWs.Cells(i, 2).Value = ruleDict(key)
+        i = i + 1
+    Next key
+
+    MsgBox "Done. Rule counts written to '" & outWs.Name & "'."
+End Sub
+
+

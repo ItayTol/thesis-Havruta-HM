@@ -1,0 +1,3 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,"['IF a person shows in a post enthusiasm for social gatherings and excitement about upcoming events THEN extraversion is likely High because this indicates a strong enjoyment of interpersonal interactions.', 'IF a person shows in a post positive language and playful banter about social situations with friends THEN extraversion is likely High because this suggests enjoyment and engagement in social contexts.']",2,0.275,2.55
+2,[],2,0.275,2.025

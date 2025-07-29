@@ -1,0 +1,5 @@
+IF a person shows in a post excitement about sharing plans with others THEN extraversion is likely High because it indicates a desire for social engagement.
+IF a person enjoys regular meet-ups with their friends and maintains close relationships with them THEN extraversion is likely High because it suggests strong social bonds and a preference for companionship.
+IF a person displays a lack of expression in their texts and appears uncomfortable sharing feelings THEN extraversion is likely Low because it reflects hesitation in social communication.
+IF a person implies they prefer staying at home with a partner over social outings THEN extraversion is likely Low because it indicates a preference for intimate, rather than broad social interactions.
+IF a person expresses a desire to meet new people and offers invitations for social gatherings on social media THEN extraversion is likely High because it shows openness to forming new social connections.

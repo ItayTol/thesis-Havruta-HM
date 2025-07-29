@@ -1,0 +1,2 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,"['IF a person shares excitement about catching up with friends and expresses eager anticipation for future gatherings, THEN extraversion is likely High because this enthusiasm reflects a desire for social connection and shared experiences.', 'IF a person demonstrates eagerness and energy around celebrations and gatherings, THEN extraversion is likely High because this enthusiasm showcases a preference for social connectivity.']",14,0.333,0.9

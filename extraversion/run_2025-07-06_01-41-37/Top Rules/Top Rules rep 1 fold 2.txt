@@ -1,0 +1,2 @@
+IF a person shows in a post a tendency to reflect on their experiences rather than actively participate in social situations, THEN extraversion is likely Low because this indicates introverted behavior and a lack of engagement with others.
+IF a person shows in a post a subdued tone and limited expressions of excitement, THEN extraversion is likely Low because this suggests a lack of enthusiasm for socializing.

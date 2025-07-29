@@ -1,0 +1,4 @@
+IF a person reflects on their enjoyment of spending time with friends but describes it in a subdued or less enthusiastic manner in their post THEN extraversion is likely Low because it indicates lower motivation for social engagement.
+IF a person shows signs of lower social skills or makes cringe posts about social situations in their content THEN extraversion is likely Low because it indicates discomfort or lack of confidence in social interactions.
+IF a person indicates they could live without socializing or do not exude enthusiasm about social activities in their content THEN extraversion is likely Low because it suggests a lack of interest in social connections.
+IF a person describes spending time with just one person rather than a group in their post THEN extraversion is likely Low because it suggests a preference for one-on-one interaction over larger social settings.

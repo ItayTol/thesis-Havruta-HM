@@ -1,0 +1,3 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,"['IF a person discusses enjoying social events and describes them as fun in a post THEN extraversion is likely High because this indicates engagement and enthusiasm for social interactions.', 'IF a person expresses excitement about future social gatherings in a post THEN extraversion is likely High because this reflects a preference for continued social engagement and connection with others.']",6,0.375,1.083
+2,"['IF a person describes their social gatherings with phrases like ""lots of laughs"" and shows anticipation for more events in a post THEN extraversion is likely High because this suggests a joyful disposition towards socializing.']",5,0.375,1.083

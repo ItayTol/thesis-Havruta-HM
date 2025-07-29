@@ -1,0 +1,4 @@
+IF a person shows in a post a willingness to perform karaoke in front of others and an eagerness to reconnect with acquaintances, THEN extraversion is likely High because it reflects a desire for social interaction and enjoyment of being with others.
+IF a person expresses enjoyment in cuddling with their partner while also feeling energized by spending time with friends, THEN extraversion is likely High because it shows comfort and enjoyment in intimate and social relationships.
+IF a person expresses indifference about meeting friends and suggests limited social connections, THEN extraversion is likely Low because it suggests a reluctance towards socialization.
+IF a person communicates a lack of enthusiasm about social outings and suggests infrequency of engagements with friends, THEN extraversion is likely Low because it reflects a disinterest in maintaining social connections.

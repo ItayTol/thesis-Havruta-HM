@@ -1,0 +1,3 @@
+IF a person shows in a post reflections and an introspective perspective rather than sharing social aspects of their experiences THEN extraversion is likely Low because this indicates a tendency to be reserved.
+IF a person shows in a post a deeper connection with a partner without a strong focus on social aspects THEN extraversion is likely Low because this suggests a preference for intimate rather than social interactions.
+IF a person shows in a post a focus on the past rather than engaging in present social activities THEN extraversion is likely Low because this suggests a lack of current social motivation.

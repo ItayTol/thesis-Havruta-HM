@@ -1,0 +1,2 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,['IF a person uses expressive language and emojis in a post about social gatherings THEN extraversion is likely High because this indicates a fun-loving and social personality.'],11,0.4,0.7

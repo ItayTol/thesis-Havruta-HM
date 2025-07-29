@@ -1,0 +1,2 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,"['IF a person shows in a post an eagerness to make plans for future social interactions, expressing excitement about reconnecting, THEN extraversion is likely High because this enthusiasm reflects a strong desire for social investment.', 'IF a person shows in a post excitement about rekindling friendships and engaging in fun activities, emphasizing enjoyment and positive interactions, THEN extraversion is likely High because this indicates an outgoing attitude towards socializing.']",9,0.433,0.7

@@ -1,0 +1,4 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,"['IF a person shows in a post excitement about sharing social events with others, THEN extraversion is likely High because this indicates a preference for group interactions.', 'IF a person shows in a post a high degree of enthusiasm and energy about recent social gatherings, THEN extraversion is likely High because it demonstrates enjoyment in social settings.']",9,0.3,1.1
+2,"['IF a person shows in a post a consistent focus on social aspects rather than introspection, THEN extraversion is likely High because this indicates an outward social orientation.']",8,0.3,1.1
+3,"['IF a person shows in a post that they are engaging with strangers and exchanging friendly gestures, THEN extraversion is likely High because this reflects openness to new social experiences.']",7,0.3,1.2

@@ -1,0 +1,4 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,"['IF a person expresses enjoyment in social gatherings or spending time with friends in a post THEN extraversion is likely High because they demonstrate a preference for social interaction.', 'IF a person talks about wanting to spend more time with others or expresses excitement about future interactions in a post THEN extraversion is likely High because they indicate a strong desire for social engagement.']",1,0.35,2.0
+2,['IF a person mentions sharing feelings about relationships openly in a public forum and discusses friendships with enthusiasm in their posts THEN extraversion is likely High because they show comfort in social expression and connection.'],0,0.35,1.0
+3,[],0,0.275,1.925

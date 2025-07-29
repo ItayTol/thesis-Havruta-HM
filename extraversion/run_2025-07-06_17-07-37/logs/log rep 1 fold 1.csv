@@ -1,0 +1,4 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,"['IF a person shows in a post that they describe their social experiences as enjoyable, THEN extraversion is likely High because this indicates a positive attitude towards social engagement.', 'IF a person shows in a post a focus on personal experiences rather than social interactions, THEN extraversion is likely Low because this indicates a tendency toward introversion.']",10,0.3,0.9
+2,"['IF a person shows in a post that they have enjoyed spending time with friends and actively sought their attention, THEN extraversion is likely High because this suggests a preference for social engagement.']",9,0.3,0.8
+3,"['IF a person shows a preference for familiar friendships rather than a desire to meet new people, THEN extraversion is likely Low because this implies a selective social inclination.']",8,0.3,1.0

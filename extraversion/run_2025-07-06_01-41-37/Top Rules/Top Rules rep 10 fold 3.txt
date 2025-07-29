@@ -1,0 +1,2 @@
+IF a person shows in a post a preference for reflective and introspective content, THEN extraversion is likely Low because this indicates a focus away from social engagement.
+IF a person shows in a post minimal enthusiasm for social events and indicates a preference for solitude, THEN extraversion is likely Low because this reflects an inclination towards introversion.

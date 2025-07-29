@@ -1,0 +1,5 @@
+IF a person reflects on deeper connections with a partner instead of on socializing with others in their post THEN extraversion is likely Low because this emphasizes an introverted nature.
+IF a person describes engaging in extroverted behaviors while spending time with friends THEN extraversion is likely High because this reflects active participation in social events.
+IF a person shares about enjoying nights out with a group of people in a post THEN extraversion is likely High because this indicates a preference for social interaction.
+IF a person appears distant and reserved even in intimate settings and focuses on introspective thoughts in their post THEN extraversion is likely Low because this indicates a lack of engagement in social interactions.
+IF a person describes a quiet evening focused on food rather than social connections in their post THEN extraversion is likely Low because this suggests a preference for solitary or less social activities.

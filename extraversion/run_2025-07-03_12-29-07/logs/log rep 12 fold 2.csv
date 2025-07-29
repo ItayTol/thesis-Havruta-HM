@@ -1,0 +1,2 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,"['IF a person expresses gratitude for their social connections and shares affectionate language in public contexts THEN extraversion is likely High because it indicates openness to sharing emotions and experiences with others.', 'IF a person expresses a desire for future meetings with friends in a candid manner, emphasizing enjoyment in socializing THEN extraversion is likely High because it shows eagerness to maintain social ties.']",8,0.5,0.7

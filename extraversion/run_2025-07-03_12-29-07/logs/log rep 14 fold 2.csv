@@ -1,0 +1,3 @@
+iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
+1,['IF a person shows in a post expressions of gratitude towards social events or shared experiences with friends and family THEN extraversion is likely High because this reflects enjoyment in social gatherings and connections with others.'],9,0.433,0.7
+2,['IF a person shows in a post a reflective or nostalgic tone regarding friendships without expressing enthusiasm for current engagements THEN extraversion is likely Low because it indicates a preference for past memories rather than present social interactions.'],8,0.433,0.767

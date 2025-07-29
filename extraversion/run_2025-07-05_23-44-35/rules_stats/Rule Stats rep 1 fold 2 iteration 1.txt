@@ -1,0 +1,1 @@
+('IF a person seems energetic and urges new experiences in social settings, THEN extraversion is likely High because it conveys a willingness to embrace social opportunities.', {'matched_p': [16, 1], 'true_labels': ['Low', 'High'], 'pred_rule_based': ['High', 'High']})

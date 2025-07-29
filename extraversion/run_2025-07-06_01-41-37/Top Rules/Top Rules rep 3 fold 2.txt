@@ -1,0 +1,4 @@
+IF a person shows in a post reflective or introspective language without focusing on social enjoyment, THEN extraversion is likely Low because this suggests a preference for solitude rather than social interaction.
+IF a person shows in a post a focus on past memories without indicating current enthusiasm for socializing, THEN extraversion is likely Low because this implies nostalgia rather than active engagement.
+IF a person shows in a post references to limited social interactions or relationships, THEN extraversion is likely Low because this suggests a tendency toward introversion.
+IF a person shows in a post a subdued tone with less enthusiastic language when discussing social events, THEN extraversion is likely Low because this indicates a lack of excitement towards socializing.

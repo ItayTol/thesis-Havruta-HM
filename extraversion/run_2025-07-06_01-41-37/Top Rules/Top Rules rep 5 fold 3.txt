@@ -1,0 +1,5 @@
+IF a person shares a high energy tone and expresses excitement about social gatherings, THEN extraversion is likely High because this suggests a strong engagement and longing for social interactions.
+IF a person interacts with someone they don't know in a social scenario, THEN extraversion is likely High because this indicates sociability and comfort in new social contexts.
+IF a person seems introspective and not overly focused on social aspects while discussing their connections with their partner, THEN extraversion is likely Low because this suggests they prioritize deeper, less social engagements.
+IF a person reflects on social experiences in a step-by-step manner, suggesting more internal processing rather than active engagement, THEN extraversion is likely Low because it indicates a preference for internal reflection over outward social interaction.
+IF a person describes not frequently seeing friends and does so in a rigid manner, then extraversion is likely Low because it indicates a lack of enthusiasm for social interactions.

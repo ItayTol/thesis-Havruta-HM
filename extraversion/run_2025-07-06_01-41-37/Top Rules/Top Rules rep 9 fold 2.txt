@@ -1,0 +1,3 @@
+IF a person shows in a post enjoyment of going out with friends and seeks attention from others, THEN extraversion is likely High because this reflects a desire for social connection and interaction.
+IF a person shows in a post that they gain energy from social interactions and are eager to share experiences with others, THEN extraversion is likely High because this indicates a natural inclination toward social environments.
+IF a person shows in a post a reflective tone focused on personal thoughts rather than social experiences, THEN extraversion is likely Low because this indicates a preference for introspection over social stimulation.

@@ -1,0 +1,2 @@
+IF a person reflects on their experiences in a way that suggests a preference for deep introspection rather than social engagement in their post THEN extraversion is likely Low because it indicates a focus on personal thoughts rather than communal experiences.
+IF a person highlights an appreciation for long-term friends over making new connections in their post THEN extraversion is likely Low because it suggests a preference for familiar relationships rather than seeking new social experiences.

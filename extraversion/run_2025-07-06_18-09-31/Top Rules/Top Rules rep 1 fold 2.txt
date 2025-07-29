@@ -1,0 +1,2 @@
+IF a person appears reflective and mentions feeling distant in their posts THEN extraversion is likely Low because this indicates a tendency towards introspection rather than social interaction.
+IF a person focuses on personal reflections rather than the social aspects of interactions in a post THEN extraversion is likely Low because this suggests a preference for introspection over outgoing behavior.

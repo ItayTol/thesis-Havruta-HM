@@ -1,0 +1,5 @@
+IF a person shows in a post clear expressions of enjoyment from socializing and participating in gatherings, THEN extraversion is likely High because this reflects a positive attitude towards social interactions.
+IF a person shows in a post that they describe engaging in social events with friends and express enjoyment of those experiences, THEN extraversion is likely High because this indicates a preference for socialization and shared experiences.
+IF a person shows in a post a desire to spend time with multiple friends and plans to meet them again soon, THEN extraversion is likely High because this suggests a proactive approach to maintaining social connections.
+IF a person shows in a post an eagerness to connect with others and indicates comfort with their social circles using a friendly tone, THEN extraversion is likely High because this signals sociability and outgoing behavior.
+IF a person shows in a post a preference for reflecting on deep connections with a partner and indicates limited focus on socializing, THEN extraversion is likely Low because this suggests a tendency towards introspection rather than engagement in social activities.

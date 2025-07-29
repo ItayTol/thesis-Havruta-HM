@@ -1,0 +1,11 @@
+IF a person expresses happiness about engaging in extroverted behaviors with friends in a post THEN extraversion is likely High because it indicates a positive disposition towards social interaction.
+IF a person expresses enjoyment of social events and dancing in a post THEN extraversion is likely High because this indicates a preference for lively social interactions.
+IF a person reminisces rather than looks forward to creating new social memories in a post THEN extraversion is likely Low because it suggests a preference for the past over future social opportunities.
+IF a person expresses minimal excitement and general observations about social interactions in a post THEN extraversion is likely Low because it reflects a disinterest in active social engagement.
+IF a person shows in a post appreciation for revisiting past social memories rather than creating new ones, THEN extraversion is likely Low because this suggests a preference for solitude or introspection.
+IF a person shows in a post a focus on intimate relationships and long-standing friendships rather than new connections, THEN extraversion is likely Low because this indicates comfort in established social bonds.
+IF a person shows in a post enjoyment of reminiscing and internal processing instead of discussing current social activities, then extraversion is likely Low because this suggests an introspective nature.
+IF a person shows in a post a focus on reflections and introspection rather than on social engagement, THEN extraversion is likely Low because this suggests a preference for solitary or less extroverted activities.
+IF a person shows in a post enjoyment of sharing their social plans or experiences on social media, then extraversion is likely High because this demonstrates an eagerness for interaction and acknowledgement from others.
+IF a person shows in a post a strong desire to attract attention and actively seeks social interactions, THEN extraversion is likely High because this indicates an outgoing personality.
+IF a person shows in a post excitement about potential future social events and expresses a desire to continue social interactions, then extraversion is likely High because this reflects motivation to engage with others.

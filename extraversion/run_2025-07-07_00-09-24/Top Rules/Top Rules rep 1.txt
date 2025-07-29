@@ -1,0 +1,12 @@
+IF a person focuses on reflections and seems introspective in their post, THEN extraversion is likely Low because it suggests a tendency to engage more with their thoughts than with social environments.
+IF a person's recount of social interactions appears internalized or processed step-by-step, THEN extraversion is likely Low because it indicates a more reflective, less spontaneous approach to socializing.
+IF a person expresses feelings about their partner in a public forum, THEN extraversion is likely High because this reflects a willingness to share personal feelings in social contexts.
+IF a person expresses enthusiasm in their post about social gatherings and future events, THEN extraversion is likely High because this indicates a preference for social activities.
+IF a person describes shared experiences with friends using phrases that indicate laughter and engagement, THEN extraversion is likely High because this reflects enjoyment in social interactions.
+IF a person shares positive sentiments and anticipation about meeting friends or attending events, THEN extraversion is likely High because this showcases an eagerness for social connections.
+IF a person focuses on past social experiences without enthusiasm or a desire to repeat them, THEN extraversion is likely Low because this suggests a lack of interest in new social connections.
+IF a person shows a lack of interest in socializing and does not express enjoyment in their interactions, THEN extraversion is likely Low because this indicates a preference for solitude over social engagement.
+IF a person reflects on past experiences and reminisces in their post rather than seeking new experiences THEN extraversion is likely Low because it indicates a preference for reflection over social interaction.
+IF a person discusses cozy, home-centered activities and family connections without mentioning social outings in their post THEN extraversion is likely Low because it reflects a preference for solitude.
+IF a person portrays uncertainty about engaging socially and indicates that this is a new experience for them in their post THEN extraversion is likely Low because it suggests discomfort in social situations.
+IF a person lacks emojis and enthusiasm in their post THEN extraversion is likely Low because it hints at social awkwardness and shyness.

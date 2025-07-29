@@ -1,0 +1,4 @@
+IF a person shows in a post a focus on reflections rather than social engagement, THEN extraversion is likely Low because it suggests an introspective approach rather than an outgoing one.
+IF a person shows in a post a tendency to favor deep connections with long-term friends rather than meeting new people, THEN extraversion is likely Low because it reflects a preference for intimacy over broad social engagement.
+IF a person shows in a post a desire to maintain friendships and expresses eagerness to see friends again, THEN extraversion is likely High because it signifies a proactive approach to socializing.
+IF a person shows in a post a narrative style that reflects careful thought about social interactions rather than spontaneous enthusiasm, THEN extraversion is likely Low because it indicates an internalized rather than expressive engagement.

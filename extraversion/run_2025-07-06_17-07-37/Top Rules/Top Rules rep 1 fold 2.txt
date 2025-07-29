@@ -1,0 +1,3 @@
+IF a person describes a quiet evening focused on food rather than social interactions, THEN extraversion is likely Low because this suggests a preference for solitary activities over social engagement.
+IF a person seems distant and reserved even when with a partner, THEN extraversion is likely Low because this indicates a lack of social warmth and engagement.
+IF a person seems reflective and introspective rather than focused on social aspects in their posts, THEN extraversion is likely Low because this suggests a preference for solitude and deep thinking over socializing.

@@ -1,0 +1,4 @@
+IF a person shares reflections about their experiences in a subdued tone THEN extraversion is likely Low because it suggests a focus on introspective thoughts rather than social engagement.
+IF a person reflects more on the past rather than discussing upcoming social events with excitement THEN extraversion is likely Low because it implies a disconnection from current social opportunities.
+IF a person discusses a close connection with friends enthusiastically and reflects on social experiences with excitement THEN extraversion is likely High because it indicates a strong preference for social interactions.
+IF a person enjoys sharing updates about their social plans with enthusiasm on social media THEN extraversion is likely High because it shows a desire to connect with others publicly.
