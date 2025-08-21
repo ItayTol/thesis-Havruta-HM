@@ -5,100 +5,77 @@ Created on Wed Jul 16 20:41:49 2025
 @author: User
 """
 
-
-from sentence_transformers import SentenceTransformer
+#!/usr/bin/env python3
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from xgboost import XGBClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix
-from sklearn.ensemble import RandomForestClassifier
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+from pathlib import Path
+from sklearn.model_selection import StratifiedKFold
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score,
+    classification_report, confusion_matrix, log_loss, matthews_corrcoef, cohen_kappa_score,
+    top_k_accuracy_score, roc_auc_score)
+from sentence_transformers import SentenceTransformer
+from xgboost import XGBClassifier
 
-def plot_confusion_matrix(y_true, y_pred, labels, title="Confusion Matrix", save_path=None):
-    """
-    Plots and optionally saves a confusion matrix with white-colored axis ticks.
-
-    Parameters:
-    - y_true: list of true class labels
-    - y_pred: list of predicted class labels
-    - labels: list of class labels (e.g., ["Low", "Moderate", "High"])
-    - title: plot title
-    - save_path: file path to save the image (e.g., "cmatrix.png"). If None, does not save.
-    """
-    cm = confusion_matrix(y_true, y_pred, labels=labels)
-    
-    plt.figure(figsize=(6, 5))
-    sns.heatmap(cm, annot=True, fmt='d', cmap="Blues",
-                xticklabels=labels, yticklabels=labels)
-
-    plt.xlabel("Predicted", color='white')
-    plt.ylabel("True", color='white')
-    plt.title(title, color='white')
-    plt.xticks(color='red')
-    plt.yticks(color='red')
-
-    plt.tight_layout()
-    
-    if save_path:
-        plt.savefig(save_path, facecolor='black', dpi=300)
-    
-    plt.show()
-
-
-personality_trait = 'e'
 def load_posts_and_trait_true_label(personality_trait: str):
-    df = pd.read_csv("C:/Users/User/OneDrive/Desktop/Masters/thesis/DATA/true_labels_3_classes.csv", encoding='cp1252')
+    df = pd.read_excel("C:/Users/User/OneDrive/Desktop/Masters/thesis/DATA/true_labels_3_classes.xlsx")
+    # for _, row in df.iterrows():
+    #       row['post1'], row['post2'] = row['post1'].replace("â€™","'"), row['post2'].replace("â€™","'")
     return df[['p', 'post1', 'post2', f'{personality_trait}']]
 
-df = load_posts_and_trait_true_label(personality_trait)
 
-df['text'] = df['post1'] + df['post2']
-df['label'] = df[personality_trait]
-model = SentenceTransformer('all-mpnet-base-v2')
+def main(df, post1="post1", post2="post2", target="e", sbert_model="sentence-transformers/all-MiniLM-L6-v2"):
+    # make text
+    df["text"] = df[post1].astype(str).fillna("") + " " + df[post2].astype(str).fillna("")
+    # pick target (fallbacks)
+    df = df[["text", target]].dropna().reset_index(drop=True).rename(columns={target: "label"})
+    le = LabelEncoder()
+    y = le.fit_transform(df["label"])
 
-# Function to generate embeddings
-def generate_embeddings(texts):
-  return model.encode(texts)
+    sbert = SentenceTransformer(sbert_model)
+    X = sbert.encode(df["text"].tolist(), batch_size=64, convert_to_numpy=True, show_progress_bar=True)
 
-rf_accuracies = []
-xgb_accuracies = []
+    skf = StratifiedKFold(n_splits=2, shuffle=True, random_state=42)
+    rows = []
+    for i, (tr, te) in enumerate(skf.split(X, y), start=1):
+        xtr, xte = X[tr], X[te]
+        ytr, yte = y[tr], y[te]
+        clf = XGBClassifier(
+            n_estimators=600, learning_rate=0.05, max_depth=8,
+            subsample=0.9, colsample_bytree=0.9, objective="multi:softprob",
+            num_class=len(le.classes_), reg_lambda=1.0, random_state=42,
+            tree_method="auto", n_jobs=-1
+        )
+        clf.fit(xtr, ytr)
+        proba = clf.predict_proba(xte)
+        pred = proba.argmax(axis=1)
+        row = {
+            "fold": i,
+            "accuracy": accuracy_score(yte, pred),
+            "precision_macro": precision_score(yte, pred, average="macro", zero_division=0),
+            "recall_macro": recall_score(yte, pred, average="macro", zero_division=0),
+            "f1_macro": f1_score(yte, pred, average="macro", zero_division=0),
+            "precision_weighted": precision_score(yte, pred, average="weighted", zero_division=0),
+            "recall_weighted": recall_score(yte, pred, average="weighted", zero_division=0),
+            "f1_weighted": f1_score(yte, pred, average="weighted", zero_division=0),
+            "matthews_corrcoef": matthews_corrcoef(yte, pred),
+            "cohen_kappa": cohen_kappa_score(yte, pred),
+            "log_loss": log_loss(yte, proba, labels=np.arange(len(le.classes_))),
+            "top_2_accuracy": top_k_accuracy_score(yte, proba, k=2, labels=np.arange(len(le.classes_))) if len(le.classes_) >= 2 else np.nan
+        }
+        try:
+            row["roc_auc_ovr_macro"] = roc_auc_score(yte, proba, multi_class="ovr", average="macro")
+            row["roc_auc_ovr_weighted"] = roc_auc_score(yte, proba, multi_class="ovr", average="weighted")
+        except Exception:
+            row["roc_auc_ovr_macro"] = np.nan
+            row["roc_auc_ovr_weighted"] = np.nan
+        rows.append(row)
+    metrics = pd.DataFrame(rows)
+    metrics.loc["mean"] = metrics.drop(columns=["fold"]).mean(numeric_only=True)
+    print(metrics)
 
-for _ in range(5):
-    # Split data
-    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
-    train_df = df[:50]
-    test_df = df[50:60] # Last 10 samples
-
-    # Generate embeddings
-    X_train = generate_embeddings(train_df['text'].tolist())
-    X_test = generate_embeddings(test_df['text'].tolist())
-    y_train = train_df['label'].values
-    y_test = test_df['label'].values
-
-    # Random Forest
-    rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
-    rf_model.fit(X_train, y_train)
-    rf_predictions = rf_model.predict(X_test)
-    rf_accuracy = accuracy_score(y_test, rf_predictions)
-    rf_accuracies.append(rf_accuracy)
-    all_rf_pred.append(rf_predictions)
-    # XGBoost
-    xgb_model = XGBClassifier(n_estimators=100, random_state=42)
-    xgb_model.fit(X_train, y_train)
-    xgb_predictions = xgb_model.predict(X_test)
-    xgb_accuracy = accuracy_score(y_test, xgb_predictions)
-    xgb_accuracies.append(xgb_accuracy)
-    
-plot_confusion_matrix(y_true, y_pred, labels, title = 'rf_pred')
-
-
-# Report results
-print("Random Forest:")
-print(f"Mean Accuracy: {np.mean(rf_accuracies):.4f}")
-print(f"Standard Deviation: {np.std(rf_accuracies):.4f}")
-
-print("\nXGBoost:")
-print(f"Mean Accuracy: {np.mean(xgb_accuracies):.4f}")
-print(f"Standard Deviation: {np.std(xgb_accuracies):.4f}")
+if __name__ == "__main__":
+    # Usage: python sbert_xgb_2fold.py /path/to/true_labels_3_classes.csv
+    import sys
+    # assert len(sys.argv) >= 2, "Please pass the CSV path as the first argument."
+    main(load_posts_and_trait_true_label('e'))

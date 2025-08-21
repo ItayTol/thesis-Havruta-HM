@@ -1,3 +1,0 @@
-IF a person describes a quiet evening focused on food rather than social aspects THEN extraversion is likely Low because it suggests a preference for solitary or low-key settings.
-IF a person appears reflective and introspective rather than focused on social aspects THEN extraversion is likely Low because it indicates a tendency towards solitude.
-IF a person uses minimal personal words or punctuation in their posts THEN extraversion is likely Low because it reflects a lack of energy or enthusiasm.

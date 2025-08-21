@@ -1,2 +1,0 @@
-iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
-1,"['IF a person demonstrates excitement and enthusiasm while discussing their social engagements, THEN extraversion is likely High because it shows a positive attitude towards social interactions.']",10,0.4,0.9

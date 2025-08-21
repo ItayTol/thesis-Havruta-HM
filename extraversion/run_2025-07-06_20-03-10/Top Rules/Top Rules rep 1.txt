@@ -1,9 +1,0 @@
-IF a person shows in a post a preference for quiet evenings focused on food rather than social aspects, THEN extraversion is likely Low because this indicates a lack of engagement with social interactions.
-IF a person shows in a post a pattern of reminiscing about past experiences rather than discussing new social events, THEN extraversion is likely Low because this reflects a preference for past memories over current social engagement.
-IF a person shows in a post a more subdued tone with limited enthusiasm about social gatherings, THEN extraversion is likely Low because this indicates a lack of interest in social interactions.
-IF a person shows in a post a strong focus on social experiences and describes them enthusiastically, THEN extraversion is likely High because this suggests high engagement with others.
-IF a person shows in a post a tendency to reflect on personal thoughts rather than discuss social enjoyment or experiences, THEN extraversion is likely Low because this suggests a more introspective nature.
-IF a person shows in a post descriptions of past gatherings without mention of current or future social interactions, THEN extraversion is likely Low because this reflects a possible disconnection from social engagement.
-IF a person reflects on deeper connections with a partner rather than social aspects, THEN extraversion is likely Low because this indicates a preference for intimate, rather than social, interactions.
-IF a person writes about how they have had recent social experiences and found these very enjoyable, THEN extraversion is likely High because this indicates a positive engagement with social activities.
-IF a person uses a subdued tone in their posts and focuses on reflections rather than social interaction, THEN extraversion is likely Low because this suggests a preference for introspection over social engagement.

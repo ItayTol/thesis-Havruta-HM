@@ -1,8 +1,0 @@
-IF a person expresses a lack of enthusiasm about going out with friends in a post THEN extraversion is likely Low because it indicates a disinterest in social activities.
-IF a person describes enjoying socializing and being out with friends in a post THEN extraversion is likely High because it indicates a preference for social interactions.
-IF a person expresses excitement about catching up with others and plans for future gatherings in a post THEN extraversion is likely High because it reflects a forward-thinking attitude towards social engagements.
-IF a person's post sounds like a complaint about socializing and lacks excitement about meeting friends THEN extraversion is likely Low because it indicates dissatisfaction with social interactions.
-IF a person implies they do not have many friends or seem disinterested in celebrations in a post THEN extraversion is likely Low because it reflects a limited social network.
-IF a person communicates a desire to be cozy at home rather than going out in a post THEN extraversion is likely Low because it indicates a preference for solitude or a few close connections.
-IF a person sounds like a complaint about socializing and lacks excitement about meeting friends THEN extraversion is likely Low because it indicates dissatisfaction with social interactions.
-IF a post conveys an energetic tone and enthusiasm for future experiences with others THEN extraversion is likely High because it suggests a desire to be socially active.

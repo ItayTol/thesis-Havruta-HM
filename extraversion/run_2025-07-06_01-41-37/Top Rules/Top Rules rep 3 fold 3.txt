@@ -1,4 +1,0 @@
-IF a person shows in a post a preference for quiet evenings and focuses on solitary activities or reflections THEN extraversion is likely Low because this indicates a tendency towards introversion.
-IF a person shows in a post a consistent reference to past experiences rather than looking forward to new ones THEN extraversion is likely Low because this implies a focus on reminiscence rather than seeking new social opportunities.
-IF a person shows in a post feelings of distance or reservation in interactions with others THEN extraversion is likely Low because this suggests discomfort in social environments.
-IF a person shows in a post a lack of expression or enthusiasm in their language and interactions THEN extraversion is likely Low because this indicates a reluctance to engage socially.

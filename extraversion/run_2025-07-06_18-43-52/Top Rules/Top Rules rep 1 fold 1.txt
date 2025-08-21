@@ -1,6 +1,0 @@
-IF a person shows in a post a focus on spending time with only one friend rather than a group then extraversion is likely Low because it indicates limited social engagement.
-IF a person shows in a post enjoyment of partying and social activities during their university life then extraversion is likely High because it indicates a strong inclination towards socializing.
-IF a person shows in a post motivations derived from spending time with others then extraversion is likely High because it reflects an affinity for social interactions.
-IF a person shows in a post a lack of expression in their texts then extraversion is likely Low because it indicates a reluctance to share feelings and engage socially.
-IF a person shows in a post a preference for long-standing friendships over meeting new people then extraversion is likely Low because it reflects a static social circle.
-IF a person shows in a post a tendency to value the company of a partner over a wider social circle then extraversion is likely Low because it suggests a preference for intimate rather than broad social interactions.

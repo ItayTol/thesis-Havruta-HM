@@ -1,4 +1,0 @@
-iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
-1,['IF a person shows in a post excitement about sharing plans with others THEN extraversion is likely High because it indicates a desire for social engagement.'],9,0.4,0.9
-2,['IF a person shares that they are motivated by spending time with people and socializing THEN extraversion is likely High because it reflects a preference for social interactions.'],8,0.3,0.967
-3,['IF a person enjoys regular meet-ups with their friends and maintains close relationships with them THEN extraversion is likely High because it suggests strong social bonds and a preference for companionship.'],7,0.267,0.933

@@ -1,4 +1,0 @@
-iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
-1,"['IF a person shows in a post a request to engage with friends and plans for future gatherings, THEN extraversion is likely High because they exhibit proactive social behavior.']",13,0.5,0.6
-2,"['IF a person shows in a post an eagerness to meet friends and engage in group activities, THEN extraversion is likely High because they are expressing a desire for social connections.']",12,0.5,0.6
-3,"['IF a person shows in a post an enjoyment of spending time with people and being social, THEN extraversion is likely High because they are indicating a preference for social engagement.']",11,0.6,0.5

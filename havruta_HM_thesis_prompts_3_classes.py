@@ -14,22 +14,22 @@ def load_trait(personality_trait: str):
               'n': 'neuroticism'}
     return traits[personality_trait]
 
-
 def prompt_create_rules_low_level(personality_trait, assessments):
-    system_content = f'''
-You are helping design structured, behavior-based classification rules for identifying the Big Five personality trait level {personality_trait} of a writer based on text (e.g., social media posts).
+    system_content = f'''You are helping design structured, behavior-based classification rules for identifying the Big Five personality trait level {load_trait(personality_trait)} of a writer based on text (e.g., social media posts).
 
-You will receive multiple psychologist-written assessments that describe behaviors correlated with a low {personality_trait} level.
-From those assessments, you will extract behavioral patterns and write clear, structured classification rules.
+You will receive multiple psychologist-written assessments that describe behaviors correlated with a low {load_trait(personality_trait)} level.
 
-⚠️ Another agent will later classify posts using only the rules you generate. Your output must be self-contained, specific, and consistent in structure.
+From those assessments, extract behavioral patterns and write clear, structured classification rules.
+
+⚠️ Another agent will later classify posts using only the rules you generate. Your output must be self-contained, specific, and consistent in structure. Rules must generalize to a variety of writing styles and contexts.
 
 🔸 Your Task
+
 Read and analyze the behavioral assessments.
 
-Identify distinct, observable behavioral patterns linked to a low {personality_trait} level.
+Identify distinct, observable behavioral patterns linked to low {load_trait(personality_trait)}.
 
-Generate a structured rule only if the behavior appears in at least two different assessments.
+Generate a rule only if the behavior appears in at least two different assessments.
 
 Output each rule as a JSON object in a list.
 
@@ -38,196 +38,264 @@ Ensure all fields are filled, follow strict structure, and avoid vague/general l
 🔹 Output Format (JSON):
 
 [
-  {{
-    "rule_name": "string",
-    "trait": "{{personality_trait}}",
-    "level": "Low",
-    "behavior_rule": ""behavior_rule": "If a post contains a specific, clearly observable behavior pattern (non-redundant and unambiguous), it likely indicates low {{personality_trait}}.",
-    "supporting_examples": [
-      "quote 1 from assessments",
-      "quote 2 from assessments",
-      "optional: quote 3"
-    ],
-    "psychological_justification": "short explanation grounded in psychology or the assessments",
-    "linguistic_indicators": [
-      "keyword or phrase 1",
-      "keyword or phrase 2"
-    ],
-    "edge_cases": [
-      "description of situation or pattern where rule should NOT be applied (optional)"
-    ]
-  }},
-  ...
+{{
+"rule_name": "Short descriptive name summarizing the behavior (e.g., 'Avoidance of Group Plans')",
+"trait": "{load_trait(personality_trait)}",
+"level": "Low",
+"behavior_rule": "If a post contain a specific, clearly observable behavior pattern (non-redundant and unambiguous), it likely indicates low {load_trait(personality_trait)}.",
+"supporting_examples": [
+"Quote 1 from assessments that shows this behavior clearly",
+"Quote 2 from assessments with similar behavior",
+"Optional: Quote 3 (if available)"
+],
+"psychological_justification": "Explain how this observed behavior aligns with low {load_trait(personality_trait)} using trait theory or established psychological insight. Avoid speculation.",
+"linguistic_indicators": [
+"Keywords or short phrases that tend to signal this behavior (e.g., 'stayed home', 'drained by people')",
+"Avoid too literal phrases—include abstract or stylistic indicators if they match the pattern"
+],
+"edge_cases": [
+"Situations where this behavior appears but does NOT reflect low {load_trait(personality_trait)} (e.g., mentions of social fatigue after a positive event)",
+"Avoid false positives from sarcasm, obligation, or non-preference-based behaviors"
+],
+"operational": {{
+"direction": -1,
+"magnitude": "integer 1–3 (strength of signal, higher=stronger)",
+"confidence": "float 0.0–1.0 (specificity of indicators)",
+"if_any": ["phrases that trigger the rule if ANY are found"],
+"patterns": ["regex-style patterns for more flexible matches (⚠️ all backslashes must be DOUBLE escaped: use \\\\b, \\\\s, etc.)"],
+"reject_if": ["phrases/contexts where the rule should not apply"],
+"abstain_policy": {{
+"min_abs_score": "numeric cutoff for weak evidence → abstain",
+"min_evidence": "minimum number of matches"
+}},
+"evidence_extraction": "instructions to extract matched spans",
+"tests": {{
+"positives": ["2 sample sentences that SHOULD trigger the rule"],
+"negatives": ["2 sample sentences that should NOT trigger the rule"]
+}}
+}}
+}},
+...
 ]
+
 🔸 Constraints
-    - Use only patterns clearly present in the provided assessments.
-    - Do not use outside knowledge.
-    - Only include a rule if it’s specific, distinct, and useful for post classification.
-    - Be conservative: a rule should match only when the described behavior is clearly evident.
-    
-🔸 Ambiguity & Redundancy Guidelines
 
-    - If two assessments express the same behavioral pattern using different language, merge them into a single rule that generalizes the pattern.
-    - If a behavioral signal could be interpreted multiple ways (e.g., “likes routine” could be due to comfort, fear, or habit), rephrase the rule to reflect only what is clearly observable from text.
-    - Avoid duplicating rules that describe the same behavior with minor wording differences (e.g., “resistance to change” and “preference for routine”).
-    - Use specific phrasing that would allow a human annotator to confidently apply the rule to real posts.
-    - When in doubt about vagueness, exclude the rule or narrow its scope until it is precise and defensible.
+Use only patterns clearly present in the provided assessments. No outside knowledge or generalizations.
 
-🔸 Behavioral Constraints:
-    - Each rule must be grounded in **observable behavior**, **language**, or **content style** described in the psychologists’ explanations.
-    - Favor **general patterns** of behavior over overly specific contexts (e.g., prefer "seeks group social interaction" over "goes to concerts").
-    - Use positively described behaviors (e.g., “shows solitude” instead of “does not engage socially”).
-    - Avoid speculative, inferred, or internal states not supported by explicit content (e.g., “feels shy”).
-    - Each rule must describe **a single behavioral signal** (i.e., be **univariate**).
-    - Eliminate redundant, overlapping, or reworded variants of the same rule. Instead, synthesize them into one generalized form.
-    - Rules must be reusable and interpretable by annotators working with **new, unseen posts**.
-    - Rules must not overlap semantically—each should describe a behavior not captured by another rule.
-    - Avoid general labels or interpretations like “dislikes change” unless supported by clearly expressed behaviors or language patterns.
-    - Use textual evidence (quotes or phrasing) to validate the rule’s scope and trigger conditions.
-    - If an assessment is marked "Moderate", break down the explanation to extract rules supporting **Low** level.
+A rule should be included only if it is:
 
-Output 3 to 6 rules max.
+Behaviorally specific
 
-✅ Example Output
-[
-  {{
-    "rule_name": "Group Social Enthusiasm",
-    "trait": "Extraversion",
-    "level": "Low",
-    "behavior_rule": "If a post contains enthusiastic, voluntary engagement in group social activities, it likely indicates High Extraversion.",
-    "supporting_examples": [
-      "Had such a great time at the team dinner tonight. So many laughs!",
-      "Back-to-back birthday parties this weekend. Loving the energy."
-    ],
-    "psychological_justification": "Extraverts gain energy from social interaction and actively seek out group settings.",
-    "linguistic_indicators": [
-      "party",
-      "team",
-      "hang out",
-      "so much fun"
-    ],
-    "edge_cases": [
-      "Exclude posts where group activities are mentioned sarcastically or out of obligation."
-    ]
-  }}
-]
+Distinct from other rules
+
+Potentially useful for classifying unseen real-world posts
+
+Rules should match conservatively: only if the behavioral signal is clearly evident and would likely be recognized by a human psychologist.
+
+Limit output to 3 to 6 rules maximum.
+
+Regex/JSON safety: In operational.patterns, all regex backslashes must be double-escaped so JSON is valid and the regex compiles (e.g., write "\\\\bquiet\\\\b", "\\\\s", not "\bquiet\b" or "\s").
+
+🔸 Rule Part Expectations
+
+Field	What It Should Contain
+rule_name	A concise label capturing the unique behavior pattern. Avoid vague or generic titles.
+trait / level	The Big Five trait (e.g., Extraversion) and the specific level this rule reflects (Low).
+behavior_rule	A condition for rule application. Must start with "If a post" and must end with "then classify with " and describe a single, clear behavior (e.g., "If a post avoid initiating social contact"). Avoid compound logic or inferred emotions.
+supporting_examples	2–3 direct quotes from the assessments showing this behavior. Must clearly reflect the trait level.
+psychological_justification	Explain why the behavior is linked to the trait. Base it on trait theory or assessment language. Do not speculate or generalize.
+linguistic_indicators	Phrases or keywords likely to appear in matching posts. Go beyond obvious words—include emotional tone, stylistic signals, or context-specific phrasing.
+edge_cases	Describe cases where the rule might match but shouldn’t. Helps avoid false positives or misclassification.
+operational	Machine-usable block: contains direction, magnitude, confidence, if_any, patterns, reject_if, abstain_policy, evidence_extraction, tests.
+
+🔸 Generalization & Strengthening Guidelines
+
+If several quotes express the same behavioral tendency, merge them into one generalized rule.
+
+Favor stylistic and content-level signals over fixed phrases.
+
+Avoid rules that rely solely on absence (e.g., “does not mention people”).
+
+Ensure every rule captures a clear behavior, not just a lack of high trait behavior.
+
+Each rule must be univariate: represent only one behavioral signal.
+
+Avoid interpreting emotional states unless explicitly stated in the language (e.g., “I hate crowds” is okay; “seems anxious” is not).
+
+🚫 Rule Rejection Criteria
+
+Do not include a rule if:
+
+It relies on vague emotional descriptions without clear behavioral grounding (e.g., “shows excitement”, “seems to enjoy company”).
+
+It could match a large portion of neutral or positive social posts regardless of trait (e.g., birthday or family messages).
+
+It overlaps significantly with another rule without introducing a new behavioral signal.
+
+It merely rephrases an existing rule or expresses the same idea using different emotional terms.
+
+It is based on inferred psychological states or attitudes not clearly observable in the text.
+
+It could match sarcastic, humorous, or context-driven behavior without indicating a true trait signal.
+
+It lacks identifiable linguistic cues or is too abstract for a language model to apply reliably.
+
+Instead, prefer rules that:
+
+Are anchored in language-level behaviors or distinct verbal styles.
+
+Can be reasonably verified using linguistic evidence from the text alone.
+
+Would apply only when a meaningful behavioral signal is present, and not just because the post topic is social or emotional in nature.
+
 🔸 Final Note
-Your output must be valid JSON, without extra commentary or headings. The next agent will automatically parse and apply these rules to classify posts. Make sure each rule is precise and based only on the behavioral assessments.
-'''
 
+Your output must be valid JSON only, with no extra explanation or headings. These rules will be parsed and applied by another AI agent without context, so clarity, behavioral grounding, and minimal ambiguity are critical. '''   
     user_content = f'''
 Below are psychologist-written assessments based on social media posts. Each assessment includes:
 
-- A trait rating (Low or Moderate)
-- A brief explanation justifying that rating
+    - A trait rating (Low or Moderate)
+    - A brief explanation justifying that rating
 
----
-
-Assessments:
-
-{assessments}
+    ---
+    
+    Assessments:
+    
+    {assessments}
 '''
     return system_content, user_content
 
-
 def prompt_create_rules_high_level(personality_trait, assessments):
+    
     system_content = f'''
-You are helping design structured, behavior-based classification rules for identifying the Big Five personality trait level {personality_trait} of a writer based on text (e.g., social media posts).
+You are helping design structured, behavior-based classification rules for identifying the Big Five personality trait level {load_trait(personality_trait)} of a writer based on text (e.g., social media posts).
 
-You will receive multiple psychologist-written assessments that describe behaviors correlated with a high {personality_trait} level.
-From those assessments, you will extract behavioral patterns and write clear, structured classification rules.
+You will receive multiple psychologist-written assessments that describe behaviors correlated with a **high {load_trait(personality_trait)}** level.
 
-⚠️ Another agent will later classify posts using only the rules you generate. Your output must be self-contained, specific, and consistent in structure.
+From those assessments, extract behavioral patterns and write **clear, structured classification rules**.
+
+⚠️ Another agent will later classify posts using only the rules you generate. Your output must be **self-contained**, **specific**, and **consistent in structure**. Rules must generalize to a variety of writing styles and contexts.
+
+---
 
 🔸 Your Task
-Read and analyze the behavioral assessments.
 
-Identify distinct, observable behavioral patterns linked to a high {personality_trait} level.
+- Read and analyze the behavioral assessments.
+- Identify **distinct, observable behavioral patterns** linked to **high {load_trait(personality_trait)}**.
+- Generate a rule **only if** the behavior appears in at least **two different assessments**.
+- Output each rule as a **JSON object in a list**.
+- Ensure **all fields are filled**, follow strict structure, and avoid vague/general language.
 
-Generate a structured rule only if the behavior appears in at least two different assessments.
-
-Output each rule as a JSON object in a list.
-
-Ensure all fields are filled, follow strict structure, and avoid vague/general language.
+---
 
 🔹 Output Format (JSON):
 
 [
-  {{
-    "rule_name": "string",
-    "trait": "{{load_trait(personality_trait)}}",
-    "level": "Low",
-    "behavior_rule": ""behavior_rule": "If a post contains a specific, clearly observable behavior pattern (non-redundant and unambiguous), it likely indicates low {load_trait(personality_trait)}.",
-    "supporting_examples": [
-      "quote 1 from assessments",
-      "quote 2 from assessments",
-      "optional: quote 3"
-    ],
-    "psychological_justification": "short explanation grounded in psychology or the assessments",
-    "linguistic_indicators": [
-      "keyword or phrase  1 ",
-      "keyword or phrase 2"
-    ],
-    "edge_cases": [
-      "description of situation or pattern where rule should NOT be applied (optional)"
-    ]
-  }},
-  ...
+{{
+"rule_name": "Short descriptive name summarizing the behavior (e.g., 'Avoidance of Group Plans')",
+"trait": "{load_trait(personality_trait)}",
+"level": "High",
+"behavior_rule": "If a post contain a specific, clearly observable behavior pattern (non-redundant and unambiguous), it likely indicates High {load_trait(personality_trait)}.",
+"supporting_examples": [
+"Quote 1 from assessments that shows this behavior clearly",
+"Quote 2 from assessments with similar behavior",
+"Optional: Quote 3 (if available)"
+],
+"psychological_justification": "Explain how this observed behavior aligns with low {load_trait(personality_trait)} using trait theory or established psychological insight. Avoid speculation.",
+"linguistic_indicators": [
+"Keywords or short phrases that tend to signal this behavior (e.g., 'stayed home', 'drained by people')",
+"Avoid too literal phrases—include abstract or stylistic indicators if they match the pattern"
+],
+"edge_cases": [
+"Situations where this behavior appears but does NOT reflect high {load_trait(personality_trait)},
+"Avoid false positives from sarcasm, obligation, or non-preference-based behaviors"
+],
+"operational": {{
+"direction": -1,
+"magnitude": "integer 1–3 (strength of signal, higher=stronger)",
+"confidence": "float 0.0–1.0 (specificity of indicators)",
+"if_any": ["phrases that trigger the rule if ANY are found"],
+"patterns": ["regex-style patterns for more flexible matches (⚠️ all backslashes must be DOUBLE escaped: use \\\\b, \\\\s, etc.)"],
+"reject_if": ["phrases/contexts where the rule should not apply"],
+"abstain_policy": {{
+"min_abs_score": "numeric cutoff for weak evidence → abstain",
+"min_evidence": "minimum number of matches"
+}},
+"evidence_extraction": "instructions to extract matched spans",
+"tests": {{
+"positives": ["2 sample sentences that SHOULD trigger the rule"],
+"negatives": ["2 sample sentences that should NOT trigger the rule"]
+}}
+}}
+}},
+...
 ]
+
+---
+
 🔸 Constraints
-    - Use only patterns clearly present in the provided assessments.
-    - Do not use outside knowledge.
-    - Only include a rule if it’s specific, distinct, and useful for post classification.
-    - Be conservative: a rule should match only when the described behavior is clearly evident.
-    
-🔸 Ambiguity & Redundancy Guidelines
-    - If two assessments express the same behavioral pattern using different language, merge them into a single rule that generalizes the pattern.
-    - If a behavioral signal could be interpreted multiple ways (e.g., “likes routine” could be due to comfort, fear, or habit), rephrase the rule to reflect only what is clearly observable from text.
-    - Avoid duplicating rules that describe the same behavior with minor wording differences (e.g., “resistance to change” and “preference for routine”).
-    - Use specific phrasing that would allow a human annotator to confidently apply the rule to real posts.
-    - When in doubt about vagueness, exclude the rule or narrow its scope until it is precise and defensible.
 
-🔸 Behavioral Constraints:
-    - Each rule must be grounded in **observable behavior**, **language**, or **content style** described in the psychologists’ explanations.
-    - Favor **general patterns** of behavior over overly specific contexts (e.g., prefer "seeks group social interaction" over "goes to concerts").
-    - Use positively described behaviors (e.g., “shows solitude” instead of “does not engage socially”).
-    - Avoid speculative, inferred, or internal states not supported by explicit content (e.g., “feels shy”).
-    - Each rule must describe **a single behavioral signal** (i.e., be **univariate**).
-    - Eliminate redundant, overlapping, or reworded variants of the same rule. Instead, synthesize them into one generalized form.
-    - Rules must be reusable and interpretable by annotators working with **new, unseen posts**.
-    - Rules must not overlap semantically—each should describe a behavior not captured by another rule.
-    - Avoid general labels or interpretations like “dislikes change” unless supported by clearly expressed behaviors or language patterns.
-    - Use textual evidence (quotes or phrasing) to validate the rule’s scope and trigger conditions.
-    - If an assessment is marked "Moderate", break down the explanation to extract rules supporting **High** level.
-Output 3 to 6 rules max.
+- Use **only** patterns clearly present in the provided assessments. No outside knowledge or generalizations.
+- A rule should be included **only if** it is:
+  - **Behaviorally specific**
+  - **Distinct from other rules**
+  - **Potentially useful for classifying unseen real-world posts**
 
-✅ Example Output
-[
-  {{
-    "rule_name": "Group Social Enthusiasm",
-    "trait": "Extraversion",
-    "level": "High",
-    "behavior_rule": "If a post contains enthusiastic, voluntary engagement in group social activities, it likely indicates High Extraversion.",
-    "supporting_examples": [
-      "Had such a great time at the team dinner tonight. So many laughs!",
-      "Back-to-back birthday parties this weekend. Loving the energy."
-    ],
-    "psychological_justification": "Extraverts gain energy from social interaction and actively seek out group settings.",
-    "linguistic_indicators": [
-      "party",
-      "team",
-      "hang out",
-      "so much fun"
-    ],
-    "edge_cases": [
-      "Exclude posts where group activities are mentioned sarcastically or out of obligation."
-    ]
-  }}
-]
+- Rules should **match conservatively**: only if the behavioral signal is **clearly evident** and would likely be recognized by a human psychologist.
+- Limit output to **3 to 6 rules** maximum.
+
+---
+
+🔸 Rule Part Expectations
+
+| Field | What It Should Contain |
+|-------|-------------------------|
+| `rule_name` | A concise label capturing the unique behavior pattern. Avoid vague or generic titles. |
+| `trait` / `level` | The Big Five trait (e.g., Extraversion) and the specific level this rule reflects (High). |
+| `behavior_rule` | A condition for rule application. Must start with "If a post" and describe a single, clear behavior (e.g., "If a post avoids initiating social contact"). Avoid compound logic or inferred emotions
+| `supporting_examples` | 2–3 direct quotes from the assessments showing this behavior. Must clearly reflect the trait level. |
+| `psychological_justification` | Explain *why* the behavior is linked to the trait. Base it on trait theory or assessment language. Do not speculate or generalize. |
+| `linguistic_indicators` | Phrases or keywords **likely to appear** in matching posts. Go beyond obvious words—include emotional tone, stylistic signals, or context-specific phrasing. |
+| `edge_cases` | Describe cases where the rule might match **but shouldn’t**. Helps avoid false positives or misclassification. |
+|  operational | Machine-usable block: contains direction, magnitude, confidence, if_any, patterns, reject_if, abstain_policy, evidence_extraction, tests. |
+
+---
+
+🔸 Generalization & Strengthening Guidelines
+
+- If several quotes express the **same behavioral tendency**, merge them into one generalized rule.
+- Favor **stylistic and content-level signals** over fixed phrases.
+- Avoid rules that rely solely on **absence** (e.g., “does not express concern”).
+- Ensure every rule captures a **clear behavior**, not just a lack of low trait behavior.
+- Each rule must be **univariate**: represent **only one** behavioral signal.
+- Avoid interpreting emotional states unless **explicitly stated** in the language (e.g., “I felt amazing at the party” is okay; “seems cheerful” is not).
+
+---
+
+🚫 Rule Rejection Criteria
+
+Do **not include** a rule if:
+
+- It relies on vague emotional descriptions without clear behavioral grounding (e.g., “shows excitement”, “seems happy with people”).
+- It could match a large portion of neutral or polite social posts regardless of trait (e.g., “Happy birthday, love you!”).
+- It overlaps significantly with another rule without introducing a new behavioral signal.
+- It merely rephrases an existing rule or expresses the same idea using different emotional terms.
+- It is based on inferred psychological states or attitudes not clearly observable in the text.
+- It could match sarcastic, humorous, or context-driven behavior without indicating a true trait signal.
+- It lacks identifiable linguistic cues or is too abstract for a language model to apply reliably.
+
+Instead, prefer rules that:
+
+- Are **anchored in language-level behaviors** or **distinct verbal styles**.
+- Can be **reasonably verified** using linguistic evidence from the text alone.
+- Would apply **only when a meaningful behavioral signal is present**, and **not** just because the post topic is social or emotional in nature.
+
+---
+
 🔸 Final Note
-Your output must be valid JSON, without extra commentary or headings. The next agent will automatically parse and apply these rules to classify posts. Make sure each rule is precise and based only on the behavioral assessments.
-'''
 
+Your output must be valid JSON only, with no extra explanation or headings. These rules will be parsed and applied by another AI agent without context, so **clarity, behavioral grounding, and minimal ambiguity are critical**.
+'''
     user_content = f'''
 Below are psychologist-written assessments based on social media posts. Each assessment includes:
 
@@ -312,51 +380,34 @@ Complaints about life, health, relationships, or stress.
 Use of negative emojis (😭, 😤) or excessive punctuation (!!!, ???).
 Pessimistic outlook or uncertainty.'''}
 
+extra_prompt_shot_desc_traits = {
+  "e": "Extraversion is characterized by sociability, assertiveness, talkativeness, enthusiasm, and a tendency to seek stimulation in the company of others.",
+  "a": "Agreeableness is characterized by compassion, cooperation, trust in others, empathy, and a tendency to prioritize social harmony and get along well with others.",
+  "c": "Conscientiousness is characterized by organization, reliability, self-discipline, attention to detail, and a strong sense of duty and goal-directed behavior.",
+  "n": "Neuroticism is characterized by emotional instability, anxiety, moodiness, irritability, and a tendency to experience negative emotions more frequently and intensely.",
+  "o": "Openness to Experience is characterized by curiosity, imagination, creativity, open-mindedness, and a preference for novelty, variety, and intellectual exploration."
+}
+
 # Prepare a prompt format for asking gpt to classify trait level based on two posts.
-def prompt_for_shot_classification(personality_trait, post1, post2):       
-     
-    system_prompt = f'''You are an expert in computational psychology and natural language processing. Your task is to analyze user-generated text from social media platforms and classify it into one of the Big Five personality traits {load_trait(personality_trait)}.
+def prompt_for_shot_classification(personality_trait, post1, post2):
+    system_prompt = f'''
+You are an expert in personality psychology. 
+Classify the level of {load_trait(personality_trait)} expressed in the following text into one of four categories: "Low", "Moderate", "High", or "Unknown".  
 
-    Use the following classification rules , informed by recent research in personality psychology and NLP: 
+⚠️ Do not use the topic itself (birthday post or childhood friends gathering) to infer the level of extraversion. 
+Base your decision only on the writer’s language, tone, and behavioral cues in the text.  
 
-    - Apply chain-of-thought reasoning: explain your reasoning step-by-step based on the features in the posts.    
-    - The first social media post is about a social gathering with the participant’s childhood friends. The second post is about congratulating the participant’s significant other on their birthday.
-    - Always return only one word of these three trait levels: "Low", "Moderate", or "High",     
-    - If you cannot infer the level, return "Unknown".
-    - No text or explanation besides that.
-        
-    ⚙️ Additional Considerations
-    Context matters : Interpret slang, memes, and platform-specific norms appropriately.
-    Ambiguity : If no clear pattern emerges, mark as "Unknown"
-   
-    Use emoji and punctuation as supplementary clues, but not definitive evidence.
-    - The two posts follow this structure:
-      - Post 1: A social gathering with childhood friends
-      - Post 2: A birthday message to the participant’s significant other
-    - Rely only on the content of these two posts. Do **not** guess based on missing behaviors or what is *not* mentioned.
-    - Return **only one of the following trait levels**:
-      - "Low"
-      - "Moderate"
-      - "High"
-    - If the posts do not give enough information to classify the trait, return exactly: **"Unknown"**
-    - Do not include any text besides the trait level or "Unknown".
-    
-  
-    ✅ Final Instruction:
-    Apply these guidelines carefully. Avoid making assumptions beyond what the text directly supports.
-    - Return **only one of the following trait levels**:
-      - "Low"
-      - "Moderate"
-      - "High"
-    - If the posts do not give enough information to classify the trait, return exactly: **"Unknown"**
-    - Do not include any text besides the trait level or "Unknown".
+Return your answer only in this JSON format:
 
-    '''
+{{
+  "level": "Low | Moderate | High | Unknown",
+  "explanation": "Reasoning based only on linguistic or behavioral cues, not on the topic itself."
+}}'''
     
     user_content = f'''Here are two social media posts written by the same person:
     Post 1: {post1}
     Post 2: {post2}''' 
-    return system_prompt, user_content.translate({13:" ", 10:""})
+    return system_prompt, user_content
 
 def prompt_build_categorization(personality_trait, rules):
     trait_themes = {
@@ -450,87 +501,126 @@ def prompt_build_categorization(personality_trait, rules):
     return system_prompt.strip(), user_prompt.strip()
 
 def prompt_classify_with_rules(personality_trait, post1, post2, rules):
-    system_content = f'''You are a strict behavioral analyst helping classify the {load_trait(personality_trait)} level of a participant based on 2 social media posts they wrote using a set of expert-generated classification rules.
+    system_content = f'''
+You are a behavioral classification agent tasked with analyzing a participant’s personality based on two social media posts and a set of expert-crafted behavioral rules.
 
-Each rule describes a specific observable behavior tied to one Big Five personality trait level {load_trait(personality_trait)}.
+Each rule corresponds to a specific, observable behavior that signals a particular level of the Big Five personality trait: **{load_trait(personality_trait)}**.
 
-Your task is to predict the {load_trait(personality_trait)} level of the participant between "Low", "Moderate", "High" or "Unknwon".  Also evaluate whether the given post clearly and significantly expresses the behavior described in each rule.
+---
 
-Apply these principles:
+🔹 TASK
 
-Only match a rule if the behavior is strongly and clearly present.
+Your job is to:
+1. Evaluate how well each rule applies to the posts.
+2. Justify your decisions clearly with quoted evidence.
+3. Rate the behavioral match strength using a 0–5 scale.
+4. Assign a final trait level to the participant: **"Low"**, **"Moderate"**, **"High"**, or **"Unknown"**.
 
-If the behavior is weak, ambiguous, sarcastic, or forced, the rule does not apply.
+---
 
-Treat the rule’s behavior description, linguistic indicators, and edge cases as binding guidance.
+🔸 POST CONTEXT
 
-For each rule:
+You will analyze two social media posts from the same person:
+- **Post 1**: A reflection about a social gathering with childhood friends.
+- **Post 2**: A birthday message to the participant’s significant other.
 
-Quote the specific part of the post that shows the behavior (if any)
+You must base your evaluation solely on these two posts. **Do not infer personality from omissions or absence of behaviors.**
 
-Explain why the rule applies or doesn’t apply
+---
 
-Give a relevance rating (0–5) based on behavioral strength and clarity:
+🔹 FOR EACH RULE:
 
-0 = Not at all present
+Evaluate the content of the 2 posts against each rule’s:
+- **Behavior description**
+- **Linguistic indicators**
+- **Edge cases**
 
-1 = Extremely weak or false match
+Apply the rule **only if the behavior is clearly expressed is both of the posts** and consistent with the rule’s logic. If expression is ambiguous, weak, sarcastic, or situationally forced, the rule does **not** apply.
 
-2 = Weak or ambiguous
+---
 
-3 = Plausible but unclear
+🔸 RULE MATCH FORMAT
 
-4 = Strong match
+For **each rule**, return an object with this exact structure:
 
-5 = Very clear match, strongly expressed
-
-✅ Your output must be a JSON array with one object per rule, with this exact structure:
-
+```json
 {{
   "rule_name": "string",
   "rule_applies": true | false,
-  "quoted_text": "string (quote from post or empty string)",
-  "explanation": "string",
-  "relevance_rating": 0–5
+  "quoted_text": "exact quote from post, or empty string if rule does not apply",
+  "explanation": "why the rule does or does not apply, citing the rule’s logic and text content",
+  "relevance_rating": integer from 0 to 5
 }}
+Use this relevance rating scale:
+
+5: Behavior is clearly and strongly expressed.
+
+4: Behavior is present but somewhat softer or less direct.
+
+3: Behavior is implied or moderately ambiguous.
+
+2: Behavior is weak, vague, or indirectly suggested.
+
+1: Match is misleading, sarcastic, or contextually invalid.
+
+0: No match whatsoever.
+
+🔹 FINAL TRAIT CLASSIFICATION
+
+After evaluating all rules, provide a trait-level decision using this structure:
+
+{{
+  "trait_classification": {{
+    "trait": "{load_trait(personality_trait)}",
+    "classified_level": "Low" | "Moderate" | "High" | "Unknown",
+    "justification": "Explain how the rule matches and their relevance ratings support your classification. Mention the number of matched rules per level and whether they were strong matches (≥4)."
+  }}
+}}
+🔸 REMINDERS
+
+Be conservative: only apply a rule when behavior is explicitly expressed.
+
+Edge cases in rules override any weak matches.
+
+Use both posts as potential sources for each rule match.
+
+Do not use outside knowledge or inference about personality traits.
+
+Make sure all relevance ratings are meaningful — avoid overusing 0 or 5.
+
 '''
 
     user_content = f'''
 
+🧾 INPUT STRUCTURE
+  
   "post1": {post1},
   "post2": {post2},
   "rules": {rules}
   
-  ✅ EXPECTED OUTPUT FORMAT
-{{
+  
+✅ EXPECTED OUTPUT FORMAT
+
   "rule_matches": [
     {{
       "rule_name": "Group Social Enthusiasm",
       "rule_applies": false,
       "quoted_text": "",
-      "explanation": "The post expresses discomfort with social events, not enthusiasm. This rule does not apply.",
-      "relevance_rating": 0
+      "explanation": "The post mentions attending a gathering, but the tone is neutral and lacks enthusiasm. The rule requires clear excitement.",
+      "relevance_rating": 2
     }},
     {{
       "rule_name": "Preference for Solitary Activities",
       "rule_applies": true,
-      "quoted_text": "I love just staying in and reading rather than going out.",
-      "explanation": "This sentence expresses enjoyment of solitary activities over socializing, directly matching the rule.",
-      "relevance_rating": 4
-    }},
-    {{
-      "rule_name": "Moderate Social Engagement",
-      "rule_applies": false,
-      "quoted_text": "Social events just drain me.",
-      "explanation": "This expresses strong negative feelings about socializing, which is excluded by the rule's edge cases.",
-      "relevance_rating": 1
+      "quoted_text": "Honestly, I would’ve preferred staying home with a book.",
+      "explanation": "This expresses a clear preference for solitude over socializing, matching the rule's behavioral pattern.",
+      "relevance_rating": 5
     }}
   ],
   "trait_classification": {{
-    "trait": "{load_trait(personality_trait)}",
+    "trait": "Extraversion",
     "classified_level": "Low",
-    "justification": "The post strongly matched the rule for Low {load_trait(personality_trait)} with a relevance rating of 5, and did not match any rules for Moderate or High."
+    "justification": "Two Low-level rules were strongly matched (relevance ratings: 5, 4), and no rules for Moderate or High applied. The participant clearly favors solitude and shows no enthusiasm for group interaction."
   }}
 }}'''
-
     return system_content, user_content

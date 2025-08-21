@@ -1,5 +1,0 @@
-IF a person shows in a post a tendency to reflect on personal experiences in a solitary manner without expressing enthusiasm for social interactions, THEN extraversion is likely Low because this suggests a preference for introspection over social engagement.
-IF a person shows in a post a focus on individual experiences or internal reflections rather than social events, THEN extraversion is likely Low because this indicates less emphasis on socializing.
-IF a person shows in a post a subdued or restrained tone when discussing social activities, THEN extraversion is likely Low because this suggests a lack of enthusiasm for socializing.
-IF a person shows in a post limited expression of excitement or engagement about meeting others, THEN extraversion is likely Low because this indicates a lower interest in social connections.
-IF a person shows in a post a focus on past events without excitement for future social interactions, THEN extraversion is likely Low because this suggests a preference for reflecting on experiences rather than seeking new ones.

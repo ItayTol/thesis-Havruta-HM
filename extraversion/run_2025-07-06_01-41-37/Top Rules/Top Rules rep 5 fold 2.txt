@@ -1,5 +1,0 @@
-IF a person appears distant and reserved when discussing their partner in a post THEN extraversion is likely Low because it indicates a lack of social engagement.
-IF a person talks about their close relationships with childhood friends in a somewhat superficial manner in a post THEN extraversion is likely High because it shows a connection with others, even if it's not deeply engaging.
-IF a person expresses happiness while engaging in social behaviors in a post THEN extraversion is likely High because it shows comfort and enjoyment in social situations.
-IF a person focuses on introspection rather than on social aspects in a post THEN extraversion is likely Low because it suggests they are more inward-looking than outward-focused.
-IF a person conveys a tone of dry language or lack of enthusiastic expression in a social context in a post THEN extraversion is likely Low because it suggests limited excitement for social engagement.

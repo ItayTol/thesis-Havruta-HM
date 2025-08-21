@@ -1,4 +1,0 @@
-IF a person shows in a post a preference for reminiscing about past connections rather than seeking new interactions, THEN extraversion is likely Low because this reflects an introverted nature.
-IF a person shows in a post feelings of being caught up in reflection rather than expressing desire for social interactions, THEN extraversion is likely Low because this suggests a more inward focus rather than an outward social focus.
-IF a person demonstrates enthusiasm for upcoming plans with friends, THEN openness is likely High because this reflects a desire for new experiences and social connections.
-IF a person shows in a post a lack of enthusiasm about future social events or past interactions, THEN extraversion is likely Low because this suggests disinterest in socializing.

@@ -1,7 +1,0 @@
-IF a person expresses a desire to reminisce about past experiences with friends rather than planning new ones THEN extraversion is likely Low because it suggests a preference for the comfort of the past over socializing in the present.
-IF a person talks about their partner without showing excitement or inclination to extend social interactions with friends THEN extraversion is likely Low because it indicates a preference for more intimate or solitary experiences rather than group activities.
-IF a person expresses a willingness to try new experiences and meet different people through various activities THEN extraversion is likely High because it demonstrates openness to social engagement.
-IF a person exhibits a desire to reminisce about past experiences with friends rather than planning new ones THEN extraversion is likely Low because it suggests a preference for the comfort of the past over socializing in the present.
-IF a person focuses on introspective reflections rather than enjoying the social aspects of gatherings THEN extraversion is likely Low because it shows a preference for solitary thinking over social engagement.
-IF a person describes feeling distant and reserved even in intimate settings like being with a partner THEN extraversion is likely Low because it suggests a lack of comfort in social situations.
-IF a person uses a subdued tone in their posts, with fewer emphatic expressions such as exclamation marks, THEN extraversion is likely Low because it indicates a more reserved personality.

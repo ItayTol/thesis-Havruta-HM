@@ -1,3 +1,0 @@
-iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
-1,"[""IF a person expresses in a post an eagerness to celebrate someone's achievements surrounded by friends, THEN extraversion is likely High because this reflects a positive engagement with the social aspect of celebrations.""]",11,0.433,0.733
-2,"['IF a person expresses in a post a willingness to meet and communicate with friends after a long time, THEN extraversion is likely High because this reflects eagerness to reconnect socially.', 'IF a person shows in a post excitement over a social event while highlighting enjoyable activities with friends, THEN extraversion is likely High because this indicates a proactive attitude toward social engagement.']",9,0.467,0.7

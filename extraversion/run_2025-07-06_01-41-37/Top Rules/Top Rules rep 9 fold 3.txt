@@ -1,5 +1,0 @@
-IF a person mentions a preference for reminiscing rather than creating new social memories in their posts THEN extraversion is likely Low because this indicates a disinterest in current social engagement.
-IF a person appears distant and reserved in their interactions, even with a partner, THEN extraversion is likely Low because this indicates a lack of social warmth or engagement.
-IF a person expresses a lack of energy in their posts with limited personal expression or punctuation THEN extraversion is likely Low because it indicates subdued social interaction.
-IF a person describes a quiet evening focused on food rather than social interactions THEN extraversion is likely Low because this reflects a preference for solitude or less social engagement.
-IF a person expresses a desire for frequent socializing and making memories with others in their posts THEN extraversion is likely High because this indicates a preference for social environments.

@@ -1,10 +1,10 @@
 Traceback (most recent call last):
-  File "c:\users\user\onedrive\desktop\masters\thesis\code 3 classes\havruta_hm_thesis_main_ranging_temps_3_classes.py", line 245, in <module>
-    main(personality_trait = 'e', num_reps = 1)
-  File "c:\users\user\onedrive\desktop\masters\thesis\code 3 classes\havruta_hm_thesis_main_ranging_temps_3_classes.py", line 161, in main
-    result_val_rules = classifier_using_rules(personality_trait, val, rules)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\User\OneDrive\Desktop\Masters\thesis\code 3 classes\havruta_HM_thesis_classification.py", line 54, in classifier_using_rules
-    trait_classification = result_pred_rules['trait_classification']
-                           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\user\onedrive\desktop\masters\thesis\code 3 classes\havruta_hm_thesis_main_ranging_temps_3_classes.py", line 279, in <module>
+    main(personality_trait = 'e', num_reps=num_reps)
+  File "c:\users\user\onedrive\desktop\masters\thesis\code 3 classes\havruta_hm_thesis_main_ranging_temps_3_classes.py", line 225, in main
+    rep_result_test = classifier_using_rules(personality_trait, test, rules, extra_prompt_few_shot, extra_prompt_academic_desc_traits)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\OneDrive\Desktop\Masters\thesis\code 3 classes\havruta_HM_thesis_classification.py", line 91, in classifier_using_rules
+    matched_rules_names = [entry['rule_name'] for entry in result_pred_rules['rule_matches'] if entry['rule_applies']]
+                                                           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
 TypeError: tuple indices must be integers or slices, not str

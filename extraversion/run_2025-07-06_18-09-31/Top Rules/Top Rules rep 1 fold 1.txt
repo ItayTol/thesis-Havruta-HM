@@ -1,3 +1,0 @@
-IF a person speaks about enjoying social gatherings and maintaining close relationships with friends, THEN extraversion is likely High because this reflects a preference for social interaction.
-IF a person describes a fun, energetic experience with friends including activities like dancing and playing games, THEN extraversion is likely High because this shows engagement in social activities.
-IF a person expresses distance and reservation in their interactions with others, THEN extraversion is likely Low because this reflects an introverted approach to social situations.

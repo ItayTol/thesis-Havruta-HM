@@ -1,5 +1,0 @@
-IF a person expresses an appreciation for long-term friends without any inclination to meet new people THEN extraversion is likely Low because this shows a preference for familiar social circles.
-IF a person describes a quiet evening focused on food rather than the social aspect THEN extraversion is likely Low because this indicates a preference for solitary activities.
-IF a person expresses a lack of enthusiasm about catching up with friends THEN extraversion is likely Low because this indicates disinterest in socializing.
-IF a person reports spending time with one person instead of a group and lacks enthusiasm about doing so THEN extraversion is likely Low because this suggests a preference for limited social interaction.
-IF a person does not express natural enthusiasm or emotional warmth in their messages THEN extraversion is likely Low because this indicates a reserve in social expression.

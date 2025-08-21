@@ -9,3 +9,4 @@ for 15 replications, I divided the 60 participants into 2 randomly shuffled fold
 We found out that some rules match to 90% of subjects but are not predicting correctly. we suggested to prune those rules and set minimum matches threshold of 15 matches and maximum correct ratio threshold of 0.67 between correct matches and all matches for each rule. Only if the two conditions meet that it is okay to prune out the rule and start over classifing the fold again without the rule pruned. I set the maximum iterations to be 5 iterations. We keep track on accuracy and Mean Absolute Error (MAE) because the classes are ordinaly sorted and choose the iteration with the highest accuracy and lowest MAE (currently not sure in what order is best)
 In the end I want to analyze the rules that were responsible for the increase in accuracy and the decrease in MAE in comparison to zero shot and few shot. 
 
+"# thesis-Havruta-HM" 

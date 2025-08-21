@@ -10,9 +10,9 @@ import json
 
 pd.set_option('display.max_colwidth', None)  # Show full text in cells
 pd.set_option('display.max_columns', None)
-import re
+
 from havruta_HM_thesis_prompts_3_classes import prompt_create_rules_low_level, prompt_create_rules_high_level
-from havruta_HM_thesis_gpt_response_3_classes import standard_gpt_response, warm_gpt_response, hot_gpt_response
+from havruta_HM_thesis_gpt_response_3_classes import standard_gpt_response, warm_gpt_response, hot_gpt_response, cold_gpt_response
 
 def load_rules_with_human(personality_trait: str, start_p: int, end_p: int, correct = None):
     # read sheet of personality trait
@@ -51,7 +51,15 @@ def get_assessments(df, psych_rating):
                 counter += 1
     return output
 
-def load_rules_with_gpt(personality_trait: str, participants):
+def prep_rules_response_for_loading(res):
+    lines = res.strip().splitlines()   
+    if lines[0].strip().startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].strip().startswith("```"):
+       lines = lines[:-1]
+    return json.loads("\n".join(lines))
+
+def load_rules_with_gpt(personality_trait: str, participants: list):
     df = pd.read_excel('C:/Users/User/OneDrive/Desktop/Masters/thesis/DATA/rules_made_by_gpt.xlsx', personality_trait)  
     df = df[df['p'].isin(participants)]    
     df = df.reset_index(drop = True)  
@@ -72,77 +80,305 @@ def load_rules_with_gpt(personality_trait: str, participants):
     # print('\n\n')
     
     # Generate rules
-    overall_res = []
+    
+    standard_res = []
+    # warm_res, hot_res, cold_res = [], [], []
+    # overall_res = []
+    
     low_level_system_content, low_level_user_content = prompt_create_rules_low_level(personality_trait, low_assessments)
     high_level_system_content, high_level_user_content = prompt_create_rules_high_level(personality_trait, high_assessments)
     
+
     try:
         res = standard_gpt_response(low_level_system_content, low_level_user_content)
-        standard_low_level_response_generated = json.loads(res)
+        standard_low_level_response_generated = prep_rules_response_for_loading(res)
     except:
         print('problem in standard_low_level_response')
         print(res)
         return None
-    overall_res += standard_low_level_response_generated
+    standard_res += standard_low_level_response_generated
     
+    # High level, Standard temp
     try:
         res = standard_gpt_response(high_level_system_content, high_level_user_content)
-        tepid_high_level_response_generated = json.loads(res)
+        standard_high_level_response_generated = prep_rules_response_for_loading(res)
     except:
         print('problem in standard_high_level_response')
         print(res)
         return None
-    overall_res += tepid_high_level_response_generated
+    standard_res += standard_high_level_response_generated
     
-    try:
-        res = warm_gpt_response(low_level_system_content, low_level_user_content)
-        warm_low_level_response_generated = json.loads(res)
-    except:
-        print('problem in warm_low_level_response')
-        print(res)
-        return None
-    overall_res += warm_low_level_response_generated
+    return standard_res
+x='''
+    if temp == 'cold':
+        # Low level, Cold temp
+        try:
+            res = cold_gpt_response(low_level_system_content, low_level_user_content)
+            cold_low_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in cold_low_level_response')
+            print(res)
+            return None
+        cold_res += cold_low_level_response_generated
+        
+        # High level, Cold temp
+        try:
+            res = cold_gpt_response(high_level_system_content, high_level_user_content)
+            cold_high_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in cold_high_level_response')
+            print(res)
+            return None
+        cold_res += cold_high_level_response_generated
+        
+        return cold_res
     
-    try:
-        res = warm_gpt_response(high_level_system_content, high_level_user_content)
-        warm_high_level_response_generated = json.loads(res)
-    except:
-        print('problem in warm_high_level_response')
-        print(res)
-        return None
-    overall_res += warm_high_level_response_generated
     
-    try:
-        res = hot_gpt_response(low_level_system_content, low_level_user_content)
-        hot_low_level_response_generated = json.loads(res)
-    except:
-        print('problem in hot_low_level_response')
-        return None
-    overall_res += hot_low_level_response_generated
+    if temp == 'warm':
     
-    try:
-        res = hot_gpt_response(high_level_system_content, high_level_user_content)
-        hot_high_level_response_generated = json.loads(res)
-    except:
-        print('problem in hot_high_level_response_generated')
-        return None
-    overall_res += hot_high_level_response_generated
+        # Low level, Warm temp
+        try:
+            res = warm_gpt_response(low_level_system_content, low_level_user_content)
+            warm_low_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in warm_low_level_response')
+            print(res)
+            return None
+        warm_res += warm_low_level_response_generated
+        
+        # High level, Warm temp
+        try:    
+            res = warm_gpt_response(high_level_system_content, high_level_user_content)
+            warm_high_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in warm_high_level_response')
+            print(res)
+            return None
+        warm_res += warm_high_level_response_generated
+    
+        return warm_res
 
-    return overall_res
-    # generated_rules = re.split(r'\n\s*\n', response_generated.strip())
-    # return generated_rules
-    # # Prune rules
-    # system_content2, user_content2 = prompt_prune_rules_with_gpt_from_gpt(personality_trait, generated_rules)
-    # response_remained = gpt_response(system_content2, user_content2)
-    # remained_rules = re.split(r'\n\s*\n', response_remained.strip())
-    # return remained_rules
-    # print(f'{len(generated_rules)} Rules Generated\n')
 
-    # print(f'\n{len(remained_rules)} Rules Remained After Pruning\n', remained_rules)
-    # diff  = []
-    # for generated_rule in generated_rules:
-    #     if generated_rule not in remained_rules:
-    #         diff.append(generated_rule)
-    # print(f'\n{len(diff)} Pruned Rules:\n', diff)
+    if temp == 'hot':
+
+        # Low level, Hot temp
+        try:
+            res = hot_gpt_response(low_level_system_content, low_level_user_content)
+            hot_low_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in hot_low_level_response')
+            print(res)
+            return None
+        hot_res += hot_low_level_response_generated
     
-    # return pruned_rules
+        # High level, Hot temp
+        try:
+            res = hot_gpt_response(high_level_system_content, high_level_user_content)
+            hot_high_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in hot_high_level_response')
+            print(res)
+            return None
+        hot_res += hot_high_level_response_generated
+        
+        return hot_res
+
+    
+    if temp == 'standard and warm':
+        # Low level, Standard temp
+        try:
+            res = standard_gpt_response(low_level_system_content, low_level_user_content)
+            standard_low_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in standard_low_level_response')
+            print(res)
+            return None
+        standard_res += standard_low_level_response_generated
+        
+        # High level, Standard temp
+        try:
+            res = standard_gpt_response(high_level_system_content, high_level_user_content)
+            standard_high_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in standard_high_level_response')
+            print(res)
+            return None
+        standard_res += standard_high_level_response_generated
+        
+        # Low level, Warm temp
+        try:
+            res = warm_gpt_response(low_level_system_content, low_level_user_content)
+            warm_low_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in warm_low_level_response')
+            print(res)
+            return None
+        warm_res += warm_low_level_response_generated
+        
+        # High level, Warm temp
+        try:    
+            res = warm_gpt_response(high_level_system_content, high_level_user_content)
+            warm_high_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in warm_high_level_response')
+            print(res)
+            return None
+        warm_res += warm_high_level_response_generated
+    
+        return standard_res + warm_res
+
+            
+    if temp == 'standard and hot':
+       try:
+           res = standard_gpt_response(low_level_system_content, low_level_user_content)
+           standard_low_level_response_generated = prep_rules_response_for_loading(res)
+       except:
+           print('problem in standard_low_level_response')
+           print(res)
+           return None
+       standard_res += standard_low_level_response_generated
+       
+       # High level, Standard temp
+       try:
+           res = standard_gpt_response(high_level_system_content, high_level_user_content)
+           standard_high_level_response_generated = prep_rules_response_for_loading(res)
+       except:
+           print('problem in standard_high_level_response')
+           print(res)
+           return None
+       standard_res += standard_high_level_response_generated
+
+
+       # Low level, Hot temp
+       try:
+           res = hot_gpt_response(low_level_system_content, low_level_user_content)
+           hot_low_level_response_generated = prep_rules_response_for_loading(res)
+       except:
+           print('problem in hot_low_level_response')
+           print(res)
+           return None
+       hot_res += hot_low_level_response_generated
+   
+       # High level, Hot temp
+       try:
+           res = hot_gpt_response(high_level_system_content, high_level_user_content)
+           hot_high_level_response_generated = prep_rules_response_for_loading(res)
+       except:
+           print('problem in hot_high_level_response')
+           print(res)
+           return None
+       hot_res += hot_high_level_response_generated
+       
+       return hot_res
+
+           
+    if temp == 'warm and hot':
+       try:
+           res = warm_gpt_response(low_level_system_content, low_level_user_content)
+           warm_low_level_response_generated = prep_rules_response_for_loading(res)
+       except:
+           print('problem in warm_low_level_response')
+           print(res)
+           return None
+       warm_res += warm_low_level_response_generated
+       
+       # High level, Warm temp
+       try:
+           res = warm_gpt_response(high_level_system_content, high_level_user_content)
+           warm_high_level_response_generated = prep_rules_response_for_loading(res)
+       except:
+           print('problem in warm_high_level_response')
+           print(res)
+           return None
+       warm_res += warm_high_level_response_generated
+
+
+       # Low level, Hot temp
+       try:
+           res = hot_gpt_response(low_level_system_content, low_level_user_content)
+           hot_low_level_response_generated = prep_rules_response_for_loading(res)
+       except:
+           print('problem in hot_low_level_response')
+           print(res)
+           return None
+       hot_res += hot_low_level_response_generated
+   
+       # High level, Hot temp
+       try:
+           res = hot_gpt_response(high_level_system_content, high_level_user_content)
+           hot_high_level_response_generated = prep_rules_response_for_loading(res)
+       except:
+           print('problem in hot_high_level_response')
+           print(res)
+           return None
+       hot_res += hot_high_level_response_generated
+       
+       return hot_res
+
+ 
+    if temp == 'all':
+        
+        # Low level, Standard temp
+        try:
+            res = standard_gpt_response(low_level_system_content, low_level_user_content)
+            standard_low_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in standard_low_level_response')
+            print(res)
+            return None
+        overall_res += standard_low_level_response_generated
+        
+        # High level, Standard temp
+        try:
+            res = standard_gpt_response(high_level_system_content, high_level_user_content)
+            standard_high_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in standard_high_level_response')
+            print(res)
+            return None
+        overall_res += standard_high_level_response_generated
+        
+        
+        # Low level, Warm temp
+        try:
+            res = warm_gpt_response(low_level_system_content, low_level_user_content)
+            warm_low_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in warm_low_level_response')
+            print(res)
+            return None
+        overall_res += warm_low_level_response_generated
+        
+        # High level, Warm temp
+        try:    
+            res = warm_gpt_response(high_level_system_content, high_level_user_content)
+            warm_high_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in warm_high_level_response')
+            print(res)
+            return None
+        overall_res += warm_high_level_response_generated
+        
+        # Low level, Hot temp
+        try:
+            res = hot_gpt_response(low_level_system_content, low_level_user_content)
+            hot_low_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in hot_low_level_response')
+            print(res)
+            return None
+        overall_res += hot_low_level_response_generated
+        
+        # High level, Hot temp
+        try:
+            res = hot_gpt_response(high_level_system_content, high_level_user_content)
+            hot_high_level_response_generated = prep_rules_response_for_loading(res)
+        except:
+            print('problem in hot_high_level_response')
+            print(res)
+            return None
+        overall_res += hot_high_level_response_generated
+        
+        return overall_res
+'''
+ 

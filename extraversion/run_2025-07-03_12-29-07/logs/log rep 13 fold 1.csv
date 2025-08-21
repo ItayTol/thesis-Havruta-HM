@@ -1,3 +1,0 @@
-iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
-1,['IF a person talks about making plans with friends or mentions having a great time socializing in a post THEN extraversion is likely High because this shows an eagerness to connect and enjoy the company of others.'],7,0.433,0.8
-2,['IF a person uses detailed language to describe nostalgic memories and the enjoyment of friendships in a post THEN extraversion is likely High because this reflects an appreciation for social connections and a desire to reminisce about shared experiences.'],6,0.433,0.8

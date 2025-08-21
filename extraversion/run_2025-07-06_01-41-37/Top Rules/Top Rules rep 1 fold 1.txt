@@ -1,5 +1,0 @@
-IF a person discusses past experiences with friends without expressing a desire to create new social memories in a post THEN extraversion is likely Low because this suggests a preference for reminiscing rather than actively seeking new social engagements.
-IF a person expresses feelings of distance and reserve in their interactions with close partners in a post THEN extraversion is likely Low because such behavior indicates a lack of comfort or willingness to connect on a deeper social level.
-IF a person explicitly states their enjoyment of good memories and plans with friends in a post THEN extraversion is likely High because this indicates a fondness for social relationships and shared experiences.
-IF a person mentions enjoying recent social experiences and finds them enjoyable in a post THEN extraversion is likely High because this indicates a positive attitude towards social interactions.
-IF a person expresses a need for social company and looks forward to interactions in a post THEN extraversion is likely High because this behavior reveals eagerness for social engagement.

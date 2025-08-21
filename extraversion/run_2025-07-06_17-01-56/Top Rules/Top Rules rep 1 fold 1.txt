@@ -1,3 +1,0 @@
-IF a person shows in a post a reflective tone focusing on introspective thoughts rather than social activities, THEN extraversion is likely Low because this indicates a preference for solitude or contemplation.
-IF a person shows in a post a focus on long-standing friendships without interest in meeting new people, THEN extraversion is likely Low because this indicates a preference for familiar social circles over new interactions.
-IF a person shows in a post a subdued tone with less energetic language and expressions, THEN extraversion is likely Low because this suggests a lack of enthusiasm for social interaction.

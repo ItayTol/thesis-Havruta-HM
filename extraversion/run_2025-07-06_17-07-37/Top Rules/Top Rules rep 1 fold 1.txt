@@ -1,5 +1,0 @@
-IF a person shows a tendency to reminisce or focus on past relationships rather than current socialization, THEN extraversion is likely Low because this suggests a disconnect from active social engagement.
-IF a person shows in a post that they have enjoyed spending time with friends and actively sought their attention, THEN extraversion is likely High because this suggests a preference for social engagement.
-IF a person shows in a post enthusiasm or excitement about sharing plans with others, THEN extraversion is likely High because this reflects an eagerness to connect socially.
-IF a person shows a preference for familiar friendships rather than a desire to meet new people, THEN extraversion is likely Low because this implies a selective social inclination.
-IF a person shows in a post that they engage in reflective and introspective thinking rather than socialization, THEN extraversion is likely Low because this implies a disinterest in social interactions.

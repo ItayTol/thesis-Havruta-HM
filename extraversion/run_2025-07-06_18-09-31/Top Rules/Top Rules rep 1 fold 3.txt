@@ -1,4 +1,0 @@
-IF a person expresses reluctance to celebrate with friends and conveys a lack of enthusiasm for social activities THEN extraversion is likely Low because this suggests disinterest in socializing.
-IF a person speaks about not having many friends to celebrate with and expresses a lack of enthusiasm for future gatherings THEN extraversion is likely Low because it shows limited social connections and disinterest in social plans.
-IF a person notes that they enjoy spending time with friends and actively invites others to socialize THEN extraversion is likely High because this reflects a strong desire for social interaction.
-IF a person demonstrates enthusiasm and enjoyment for group activities and mentions past experiences with multiple people THEN extraversion is likely High because this highlights active engagement in social contexts.

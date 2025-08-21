@@ -1,4 +1,0 @@
-IF a person shows in a post a strong focus on maintaining deep connections with a partner rather than broader social interactions, THEN extraversion is likely Low because this indicates a preference for fewer but closer relationships.
-IF a person shows in a post a willingness to engage with strangers or initiate social interactions, THEN extraversion is likely High because engaging actively with others reflects sociability.
-IF a person shows in a post reflective language focused on personal thoughts rather than social interactions, THEN extraversion is likely Low because introspective tendencies indicate a preference for solitude.
-IF a person shows in a post less exuberant language and a tone that is subdued or dry, THEN extraversion is likely Low because a lack of enthusiasm suggests an introverted nature.

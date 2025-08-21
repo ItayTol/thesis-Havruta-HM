@@ -1,3 +1,0 @@
-IF a person appears uncomfortable in social scenarios and expresses difficulty in engaging or lacks enthusiasm about social interactions, THEN extraversion is likely Low because this indicates avoidance of social situations.
-IF a person's communication reflects internal thoughts and reflections instead of outwardly engaging behaviors, THEN extraversion is likely Low because this indicates focus on introspection rather than social activity.
-IF a person does not display enthusiasm or warmth in their tone and lacks emojis or expressive language in posts regarding social situations, THEN extraversion is likely Low because this reflects a disinterest in social interactions.

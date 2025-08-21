@@ -1,3 +1,0 @@
-IF a person reflects on past social interactions without enthusiasm in a post, THEN extraversion is likely Low because this indicates a lack of current engagement with social activities.
-IF a person expresses a tendency to reminisce rather than create new social memories in a post, THEN extraversion is likely Low because this suggests a preference for solitude over socializing.
-IF a person implies a desire to stay cozy at home rather than engage in social activities in a post, THEN extraversion is likely Low because this indicates a preference for quiet, solitary time over social interaction.

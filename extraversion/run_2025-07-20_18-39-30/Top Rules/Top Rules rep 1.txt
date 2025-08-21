@@ -1,8 +1,0 @@
-IF a person shows in a post enthusiasm for social gatherings and excitement about upcoming events THEN extraversion is likely High because this indicates a strong enjoyment of interpersonal interactions.
-IF a person shows in a post positive language and playful banter about social situations with friends THEN extraversion is likely High because this suggests enjoyment and engagement in social contexts.
-IF a person shows in a post expressions of social enjoyment accompanied by a lack of reluctance to engage with others THEN extraversion is likely High because this indicates a preference for active social interactions.
-IF a person writes about enjoying social experiences with others in a post THEN extraversion is likely High because they demonstrate a preference for engaging with people in social settings.
-IF a person shares memories of past experiences with friends and suggests enjoyment of those memories in a post THEN extraversion is likely High because they reflect a history of sociability and engagement.
-IF a person expresses excitement about future gatherings and planning to meet friends in a post THEN extraversion is likely High because they show an eagerness to maintain social connections.
-IF a person uses upbeat language, exclamation marks, or energetic expressions in a post THEN extraversion is likely High because this reflects a fun-loving attitude and enjoyment of social events.
-IF a person frequently mentions having fun experiences with friends and enjoys spending time together in a post THEN extraversion is likely High because it indicates a strong social orientation.

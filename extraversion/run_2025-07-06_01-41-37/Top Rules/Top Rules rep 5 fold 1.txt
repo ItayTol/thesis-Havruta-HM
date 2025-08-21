@@ -1,5 +1,0 @@
-IF a person shows in a post appreciation for long-term friendships without a desire to meet new people, THEN extraversion is likely Low because this indicates a preference for familiarity over new social connections.
-IF a person shows in a post a strong enthusiasm and excitement about social events and gatherings, THEN extraversion is likely High because this indicates an eagerness to connect with others.
-IF a person shows in a post a distant and reserved demeanor in interactions with a partner, THEN extraversion is likely Low because this indicates difficulty with emotional openness in social interactions.
-IF a person shows in a post a tendency to reminisce about past gatherings rather than expressing interest in future interactions, THEN extraversion is likely Low because this indicates a preference for solitude and a lack of current social engagement.
-IF a person shows in a post enthusiasm with exclamatory phrases about social experiences, THEN extraversion is likely High because this reflects high energy and joy in social interactions.

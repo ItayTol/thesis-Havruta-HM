@@ -1,6 +1,0 @@
-('IF a person shows in a post a willingness to try new activities or experiences, THEN openness to experiences is likely High because it indicates a readiness to embrace novelty and spontaneity.', 'Actions')
-('IF a person shares humor or playful language in their posts, THEN openness to experiences is likely High because it suggests an adaptable and creative personality.', 'Ideas')
-('IF a person discusses nostalgia or memories with longtime friends without mentioning new experiences, THEN openness to experiences is likely Low because it implies a preference for familiar situations over exploring new ones.', 'Feelings')
-('IF a person talks about relationships in a way that focuses solely on past experiences and lacks future plans, THEN openness to experiences is likely Low because it indicates a reluctance to seek out new opportunities or adventures.', 'Feelings')
-('IF a person provides detailed descriptions of their social activities and interactions with enthusiasm, THEN openness to experiences is likely High because it reflects engagement and a zest for life.', 'Actions')
-('IF a person expresses gratitude for longstanding friendships without indicating a desire to meet new people, THEN openness to experiences is likely Low because it suggests comfort in the status quo rather than a drive for new connections.', 'Feelings')

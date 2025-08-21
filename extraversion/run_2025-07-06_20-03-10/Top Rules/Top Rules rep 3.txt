@@ -1,7 +1,0 @@
-IF a person reminisces rather than making new plans with others in their post THEN extraversion is likely Low because it suggests a tendency to reflect rather than actively seek social engagement.
-IF a person expresses a deeper connection with a partner over social activities in their post THEN extraversion is likely Low because it indicates a preference for intimate relationships rather than broad social interactions.
-IF a person's reflections on social interactions are introspective and lack excitement about the social aspects THEN extraversion is likely Low because this suggests they are more content in solitude.
-IF a person describes feeling distant and reserved even in the company of their partner in a post THEN extraversion is likely Low because this indicates a preference for solitude over social interaction.
-IF a person expresses feeling distant and reserved even in the company of their partner in a post THEN extraversion is likely Low because this indicates a preference for solitude over social interaction.
-IF a person focuses on food and introspection rather than the social aspect in their posts THEN extraversion is likely Low because an emphasis on solitary reflections suggests introversion.
-IF a person demonstrates a deeper connection with a partner while being reflective in posts THEN extraversion is likely Low because focusing on deep relationships without exuberance indicates introversion.

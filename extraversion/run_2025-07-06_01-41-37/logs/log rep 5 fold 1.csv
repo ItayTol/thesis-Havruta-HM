@@ -1,2 +1,0 @@
-iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
-1,"['IF a person shows in a post enjoyment and excitement for spending time with friends, THEN extraversion is likely High because this reflects a sociable and energetic nature.', 'IF a person shows in a post expression of wanting to see friends again, THEN extraversion is likely High because this demonstrates an active interest in maintaining social relationships.']",12,0.4,0.9

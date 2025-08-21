@@ -1,3 +1,0 @@
-iteration,removed_rules,rules_remaining,iteration_accuracy,iteration_mae
-1,['IF a person expresses excitement about an upcoming social event with friends and uses enthusiastic language in their post THEN extraversion is likely High because it suggests a strong engagement with social experiences.'],7,0.367,0.9
-2,['IF a person expresses feeling energized by catching up with friends and evokes excitement for future gatherings in their post THEN extraversion is likely High because they demonstrate a strong preference for social experiences.'],6,0.367,0.8

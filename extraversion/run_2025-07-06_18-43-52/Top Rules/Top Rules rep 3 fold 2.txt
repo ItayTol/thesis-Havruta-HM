@@ -1,3 +1,0 @@
-IF a person indicates infrequent interactions with friends in their posts THEN extraversion is likely Low because it signals a lack of engagement in social activities.
-IF a person displays a writing style that lacks enthusiasm or emojis in their posts THEN extraversion is likely Low because it indicates a disinterest in social engagement.
-IF a person writes rigidly about social occasions and expresses a desire not to participate in them in their posts THEN extraversion is likely Low because it suggests reluctance towards social interactions.

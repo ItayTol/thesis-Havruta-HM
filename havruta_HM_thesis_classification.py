@@ -9,8 +9,7 @@ from collections import defaultdict
 import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_absolute_error
-from havruta_HM_thesis_classification_prep  import evaluate_few_shot, evaluate_zero_shot, rank_rules_and_classify
-from collections import Counter
+from havruta_HM_thesis_classification_prep  import evaluate_few_shot, evaluate_zero_shot, rank_rules_and_classify, evaluate_academic_rules_shot
 
 def classifier_zero_and_few_shot(personality_trait, posts_df, extra_prompt_few_shot, rep, fold):    
     results = []
@@ -37,59 +36,117 @@ def classifier_zero_and_few_shot(personality_trait, posts_df, extra_prompt_few_s
     return pd.DataFrame(results)
 
 import json
+
 # In each iteration, go over and classify  test set all
-def classifier_using_rules(personality_trait, posts_df, rules, iteration=None):    
+def classifier_using_rules(personality_trait, posts_df, rules, extra_prompt_few_shot, extra_prompt_academic_desc_traits, iteration=None):    
     results_for_rules = []
-    list_rules_pred, list_zero_pred = [], []
+    list_rules_pred, list_zero_pred, list_few_pred = [], [], []
+    list_rules_explain, list_zero_explain, list_few_explain = [], [], []
     true_labels = []
     # dict_class_to_code = {'Unknown':0, 'Low': 1, 'Moderate': 2, 'High': 3}
 
-    for _, row in posts_df.iterrows():
+    for i, row in posts_df.iterrows():
+        print('index', i)
         p = row['p']
         post1, post2 = row['post1'], row['post2']
         true_label = row[personality_trait]    
         true_labels.append(true_label)
         
-        result_pred_rules = rank_rules_and_classify(personality_trait, post1, post2, rules)
-        trait_classification = result_pred_rules['trait_classification']
-        classified_level = trait_classification['classified_level']
-        list_rules_pred.append(classified_level)
-       
-        sample_zero_pred = evaluate_zero_shot(personality_trait, post1, post2)
-        list_zero_pred.append(sample_zero_pred)
-        # Parse GPT JSON output (already formatted to spec)
+        try:
+            response_zero = evaluate_zero_shot(personality_trait, post1, post2)  
+            sample_zero_pred = response_zero['level']
+            sample_zero_explanation = response_zero['explanation']
+            list_zero_pred.append(sample_zero_pred)
+            list_zero_explain.append(sample_zero_explanation)
+    
+        except:
+            print('problem in response_zero')
         
-        matched_rules_names = [entry['rule_name'] for entry in result_pred_rules['rule_matches'] if entry['relevance_rating'] > 0]
-        matched_rules = [entry['behavior_rule'] for entry in rules if entry['rule_name'] in matched_rules_names]
-        supporting_examples = [entry['supporting_examples'] for entry in rules if entry['rule_name'] in matched_rules_names]
-        psychological_justification = [entry['psychological_justification'] for entry in rules if entry['rule_name'] in matched_rules_names]
-        edge_cases = [entry['edge_cases'] for entry in rules if entry['rule_name'] in matched_rules_names]
-        linguistic_indicators = [entry['linguistic_indicators'] for entry in rules if entry['rule_name'] in matched_rules_names]
+        try:
+            response_few = evaluate_few_shot(personality_trait, post1, post2, extra_prompt_few_shot)
+            sample_few_pred = response_few['level']        
+            sample_few_explanation = response_few['explanation']
+            list_few_pred.append(sample_few_pred)
+            list_few_explain.append(sample_few_explanation)
+        except:
+            print('problem in reponse_few')
+        
+        try:
+            result_pred_rules = rank_rules_and_classify(personality_trait, post1, post2, rules)
+        except:
+            print('problem in response_rules')
+            
+        trait_classification = result_pred_rules['trait_classification']
 
+        classified_level = trait_classification['classified_level']
+        justification = trait_classification['justification']
+        list_rules_pred.append(classified_level)
+        
+        # response_rules = evaluate_academic_rules_shot(personality_trait, post1, post2, extra_prompt_academic_desc_traits[personality_trait])
+        # sample_academic_rules_pred = response_rules['level']
+        # sample_academic_rules_explanation = response_rules['explanation']
+        # list_rules_pred.append(sample_academic_rules_pred)
+        # list_rules_explain.append(sample_academic_rules_explanation)
+        
+            # Parse GPT JSON output (already formatted to spec)        
+        
+        matched_rules_names = [entry['rule_name'] for entry in result_pred_rules['rule_matches'] if entry['rule_applies']]
+        matched_rules = [entry['behavior_rule'] for entry in rules if entry['rule_name'] in matched_rules_names]
+        quoted_text = [entry['quoted_text'] for entry in result_pred_rules['rule_matches'] if entry['rule_applies']]
+        relevance_rating = [entry['relevance_rating'] for entry in result_pred_rules['rule_matches'] if entry['rule_applies']]
+        explanation = [entry['explanation'] for entry in result_pred_rules['rule_matches'] if entry['rule_applies']]
+    
+        not_matched_rules_names = [entry['rule_name'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
+        not_matched_rules = [entry['behavior_rule'] for entry in rules if entry['rule_name'] in not_matched_rules_names]
+        not_match_quoted_text = [entry['quoted_text'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
+        not_match_relevance_rating = [entry['relevance_rating'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
+        not_match_explanation = [entry['explanation'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
+    
+        
         results_for_rules.append({
             "p": p,
             "post1":post1,
             "post2":post2,
             "true_label": true_label,
+            "matched_rules_names": matched_rules_names,
             "matched_rules": matched_rules,
-            "supporting_examples": supporting_examples,
-            "psychological_justification": psychological_justification,
-            "linguistic_indicators": linguistic_indicators,
-            "edge_cases": edge_cases,
-            "pred_zero_shot": sample_zero_pred,
+            "quoted_texts": quoted_text,
+            "relevance_ratings": relevance_rating,
+            "explanations": explanation,
             "pred_rule_based": classified_level,
+            "pred_rule_justifications": justification,
+
+            "not_matched_rules_names": not_matched_rules_names,
+            "not_matched_rules": not_matched_rules,
+            "not_match_quoted_texts": not_match_quoted_text,
+            "not_match_relevance_ratings": not_match_relevance_rating,
+            "not_match_explanations": not_match_explanation,
+
+            # "explanation_rule_based": sample_academic_rules_explanation,
+            "pred_few_based": sample_few_pred,
+            # "explanation_few_based": sample_few_explanation,
+            "pred_zero_based": sample_zero_pred
+            # "explanation_zero_based": sample_zero_explanation,
         })    
+        
     results_df = pd.DataFrame(results_for_rules)
     score_rules = [1 if pred == true else 0 for pred, true in zip(list_rules_pred, true_labels)]
+    score_few = [1 if pred == true else 0 for pred, true in zip(list_few_pred, true_labels)]
     score_zero = [1 if pred == true else 0 for pred, true in zip(list_zero_pred, true_labels)]
-    results_df['score_rules'] = score_rules 
-    results_df['score_zero'] = score_zero 
+    results_df['score_rules'] = score_rules
+    results_df['score_few'] = score_few
+    results_df['score_zero'] = score_zero
     
     
     # pred_label_code = list(map(lambda x: dict_class_to_code[x], list_rules_pred))
     # true_label_code = list(map(lambda x: dict_class_to_code[x], true_labels))
     
-    # print(f'Rules accuracy is {np.round(np.mean(score_rules), 3)}\nRules Mean Absolute Error is {np.round(np.mean(mae_rules), 3)}')
+    print(f'Rules accuracy is {np.round(np.mean(score_rules), 3)}\n')
+          # Rules Mean Absolute Error is {np.round(np.mean(mae_rules), 3)}')
+    print(f'Few Shot accuracy is {np.round(np.mean(score_few), 3)}\n')
+          # Few Shot Mean Absolute Error is {np.round(np.mean(mae_few), 3)}')
+    print(f'Zero Shot accuracy is {np.round(np.mean(score_zero), 3)}\n')
+          # Zero Shot Mean Absolute Error is {np.round(np.mean(mae_zero), 3)}')
     return results_df
 
 # Recursive filtering function
