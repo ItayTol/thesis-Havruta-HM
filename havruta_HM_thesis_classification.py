@@ -9,7 +9,7 @@ from collections import defaultdict
 import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_absolute_error
-from havruta_HM_thesis_classification_prep  import evaluate_few_shot, evaluate_zero_shot, rank_rules_and_classify, evaluate_academic_rules_shot
+from havruta_HM_thesis_classification_prep  import evaluate_few_shot, evaluate_zero_shot, evaluate_academic_rules_shot, rank_rules_and_classify
 
 def classifier_zero_and_few_shot(personality_trait, posts_df, extra_prompt_few_shot, rep, fold):    
     results = []
@@ -35,10 +35,10 @@ def classifier_zero_and_few_shot(personality_trait, posts_df, extra_prompt_few_s
         
     return pd.DataFrame(results)
 
-import json
 
-# In each iteration, go over and classify  test set all
-def classifier_using_rules(personality_trait, posts_df, rules, extra_prompt_few_shot, extra_prompt_academic_desc_traits, iteration=None):    
+
+# In each iteration, go over and classify posts_df
+def classifier_using_rules(personality_trait, posts_df, rules, extra_prompt_few_shot, iteration=None):    
     results_for_rules = []
     list_rules_pred, list_zero_pred, list_few_pred = [], [], []
     list_rules_explain, list_zero_explain, list_few_explain = [], [], []
@@ -98,7 +98,7 @@ def classifier_using_rules(personality_trait, posts_df, rules, extra_prompt_few_
     
         not_matched_rules_names = [entry['rule_name'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
         not_matched_rules = [entry['behavior_rule'] for entry in rules if entry['rule_name'] in not_matched_rules_names]
-        not_match_quoted_text = [entry['quoted_text'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
+        # not_match_quoted_text = [entry['quoted_text'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
         not_match_relevance_rating = [entry['relevance_rating'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
         not_match_explanation = [entry['explanation'] for entry in result_pred_rules['rule_matches'] if not entry['rule_applies']]
     
@@ -108,6 +108,7 @@ def classifier_using_rules(personality_trait, posts_df, rules, extra_prompt_few_
             "post1":post1,
             "post2":post2,
             "true_label": true_label,
+            "json response rules": result_pred_rules,
             "matched_rules_names": matched_rules_names,
             "matched_rules": matched_rules,
             "quoted_texts": quoted_text,
@@ -118,15 +119,15 @@ def classifier_using_rules(personality_trait, posts_df, rules, extra_prompt_few_
 
             "not_matched_rules_names": not_matched_rules_names,
             "not_matched_rules": not_matched_rules,
-            "not_match_quoted_texts": not_match_quoted_text,
+            # "not_match_quoted_texts": not_match_quoted_text,
             "not_match_relevance_ratings": not_match_relevance_rating,
             "not_match_explanations": not_match_explanation,
 
             # "explanation_rule_based": sample_academic_rules_explanation,
             "pred_few_based": sample_few_pred,
-            # "explanation_few_based": sample_few_explanation,
-            "pred_zero_based": sample_zero_pred
-            # "explanation_zero_based": sample_zero_explanation,
+            "explanation_few_based": sample_few_explanation,
+            "pred_zero_based": sample_zero_pred,
+            "explanation_zero_based": sample_zero_explanation
         })    
         
     results_df = pd.DataFrame(results_for_rules)
@@ -185,9 +186,6 @@ def recursive_rule_filtering(personality_trait, posts_df, rules, rep, fold,
                     rule_stats[rule]["true_labels"].append(row["true_label"])
                     rule_stats[rule]["pred_rule_based"].append(row["pred_rule_based"])
                     
-        # with open(f'{path}{directory_names[3]}/Rule Stats rep {rep} fold {fold} iteration {iteration}.txt', 'w') as f:
-        #     for item in rule_stats.items():
-        #         f.write(str(item) + '\n')
             
         # Analyze each rule's accuracy
         to_remove = []
@@ -227,5 +225,4 @@ def recursive_rule_filtering(personality_trait, posts_df, rules, rep, fold,
             
     # Find the iteration with the highest accuracy
     best_iter, (best_acc, best_mae, best_df) = max(dict_iterations_result_df.items(), key=lambda x: x[1][0])
-    pd.DataFrame(iteration_logs).to_csv(f'{path}{directory_names[0]}/log rep {rep} fold {fold}.csv', index=False)
     return best_df
